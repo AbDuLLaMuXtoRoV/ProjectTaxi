@@ -1,5 +1,5 @@
 /*
- * Safar — booking validation and normalisation.
+ * LimoBay — booking validation and normalisation.
  * Shared by server.js and by the browser's offline demo mode, so both
  * accept exactly the same bookings and compute exactly the same price.
  * Times are wall-clock times in the airport's own time zone (DST-aware).

@@ -1,5 +1,5 @@
 /*
- * Safar — web server. No dependencies: `node server.js`.
+ * LimoBay — web server. No dependencies: `node server.js`.
  *
  *  - Serves the site from ./public (gzip + ETag caching)
  *  - Booking API: create, look up, cancel; "call me back" requests
@@ -122,7 +122,7 @@ function sendJson(res, status, data) {
   res.writeHead(status, Object.assign({
     'Content-Type': 'application/json; charset=utf-8',
     'Cache-Control': 'no-store',
-    'X-Safar-Api': '1'
+    'X-LimoBay-Api': '1'
   }, SECURITY_HEADERS));
   res.end(body);
 }
@@ -298,7 +298,7 @@ function adminPage() {
   }).join('');
   const callbacks = db.callbacks.filter((c) => !c.done).map((c) => `<li><a href="tel:${c.phone}">${core.fmtPhone(c.phone)}</a> ${escHtml(c.name)} <small>${escHtml(c.at.slice(0, 16).replace('T', ' '))} UTC · ${c.lang}</small>
     <form method="post" action="/admin/callbacks/${c.id}"><button>Done</button></form></li>`).join('');
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Safar — bookings</title>
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>LimoBay — bookings</title>
   <style>
     body{font:15px/1.45 system-ui,sans-serif;margin:0;background:#FAF6EE;color:#12203A}
     header{background:#0A1A33;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
@@ -309,7 +309,7 @@ function adminPage() {
     button{font:inherit;font-size:12px;margin:2px;padding:4px 8px;border:1px solid #C7BAA2;border-radius:6px;background:#fff;cursor:pointer}
     ul{background:#fff;border-radius:12px;padding:12px 32px}li form{display:inline}h2{font-size:18px}a{color:#0B6E79}
   </style></head><body>
-  <header><b>Safar · bookings</b><span>${db.bookings.length} total</span></header>
+  <header><b>LimoBay · bookings</b><span>${db.bookings.length} total</span></header>
   <main>
     ${callbacks ? `<h2>Call back</h2><ul>${callbacks}</ul>` : ''}
     <h2>Bookings</h2>
@@ -323,7 +323,7 @@ async function handleAdmin(req, res, url) {
     return res.end('Admin is disabled. Set ADMIN_PASSWORD to enable it.');
   }
   if (!adminAuthorized(req)) {
-    res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="Safar admin", charset="UTF-8"', 'Content-Type': 'text/plain; charset=utf-8' });
+    res.writeHead(401, { 'WWW-Authenticate': 'Basic realm="LimoBay admin", charset="UTF-8"', 'Content-Type': 'text/plain; charset=utf-8' });
     return res.end('Password required');
   }
   const parts = url.pathname.split('/').filter(Boolean);
@@ -379,7 +379,7 @@ async function serveStatic(req, res, url) {
     if (!stat.isFile()) throw new Error('not a file');
   } catch (e) {
     res.writeHead(404, Object.assign({ 'Content-Type': 'text/html; charset=utf-8' }, SECURITY_HEADERS));
-    return res.end('<!doctype html><meta charset="utf-8"><title>404</title><p style="font:18px system-ui;padding:40px">Page not found. <a href="/">Safar — home</a></p>');
+    return res.end('<!doctype html><meta charset="utf-8"><title>404</title><p style="font:18px system-ui;padding:40px">Page not found. <a href="/">LimoBay — home</a></p>');
   }
 
   const ext = path.extname(file).toLowerCase();
@@ -425,7 +425,7 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, HOST, () => {
-  console.log(`Safar is running: http://localhost:${PORT}`);
+  console.log(`LimoBay is running: http://localhost:${PORT}`);
   console.log(`Telegram notifications: ${TG_TOKEN && TG_CHAT ? 'on' : 'off (set TELEGRAM_BOT_TOKEN and TELEGRAM_CHAT_ID)'}`);
   console.log(`Admin page: ${ADMIN_PASSWORD ? `http://localhost:${PORT}/admin` : 'off (set ADMIN_PASSWORD)'}`);
 });

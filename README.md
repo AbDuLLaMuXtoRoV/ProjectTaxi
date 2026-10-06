@@ -1,4 +1,4 @@
-# Safar — airport car service booking (US)
+# LimoBay — airport car service booking (US)
 
 A fast, mobile-first booking site for airport rides in the United States. It covers 22 major airports, is in English and Spanish, is built to be easy for older travelers, and has no build step and no dependencies.
 
@@ -83,7 +83,7 @@ All photos come from [Unsplash](https://unsplash.com/license) (free for commerci
 
 ## Before launch
 
-1. **Replace the placeholders** in `config.js`: brand name, phone (`555-0147` is a fictional number), SMS, WhatsApp, email and site URL. These are marked `TODO`. Also update the phone and name in `index.html` (they appear in `<head>`, the JSON-LD block and the `<noscript>` text), and replace the sample reviews with real ones.
+1. **Replace the placeholders** in `config.js`: phone (`555-0147` is a fictional number), SMS, WhatsApp, email and site URL (`limobay.example` is a placeholder domain). These are marked `TODO`. Also update the phone in `index.html` (it appears in `<head>`, the JSON-LD block and the `<noscript>` text), and replace the sample reviews with real ones.
 2. **Choose your airports and check the prices** against your real costs. Remove the airports you don't serve from `config.js`.
 3. **Address search and routing** use free public services: Photon for addresses, OSRM for routes and OpenStreetMap for map tiles. These are fine for testing but can be slow or rate-limited. For production, switch to a keyed provider such as Google Places or Mapbox. Without them the site still works: it falls back to the built-in places and distance estimates.
 4. Run it behind HTTPS (nginx or Caddy). A JSON file is enough for a small team; move to a database (SQLite or Postgres) when bookings grow. For SMS confirmations to customers, connect a provider such as Twilio.

@@ -1,9 +1,9 @@
 /*
- * Safar — translations. Every key holds both languages side by side.
+ * LimoBay — translations. Every key holds both languages side by side.
  * {placeholders} are filled from app.js (wait, cancel, phone, brand, …).
  * Spanish uses the polite "usted" form throughout.
  */
-window.SAFAR_I18N = {
+window.LIMOBAY_I18N = {
   months: {
     en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
     es: ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre']
@@ -13,7 +13,7 @@ window.SAFAR_I18N = {
     es: ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado']
   },
   strings: {
-    'meta.title': { en: 'Safar — airport car service at a flat rate in 20+ US cities', es: 'Safar — traslados al aeropuerto con tarifa fija en más de 20 ciudades de EE. UU.' },
+    'meta.title': { en: 'LimoBay — airport car service at a flat rate in 20+ US cities', es: 'LimoBay — traslados al aeropuerto con tarifa fija en más de 20 ciudades de EE. UU.' },
     'skip': { en: 'Skip to main content', es: 'Ir al contenido principal' },
 
     // Header
@@ -128,7 +128,7 @@ window.SAFAR_I18N = {
 
     // Fleet
     'fleet.eyebrow': { en: 'Our fleet', es: 'Nuestra flota' },
-    'fleet.title': { en: 'The Safar fleet.', es: 'La flota Safar.' },
+    'fleet.title': { en: 'The LimoBay fleet.', es: 'La flota LimoBay.' },
     'fleet.sub': { en: 'Late-model vehicles and licensed, insured chauffeurs. The price is per vehicle, not per person.', es: 'Vehículos recientes y choferes con licencia y seguro. El precio es por vehículo, no por persona.' },
     'fleet.from': { en: 'from {price}', es: 'desde {price}' },
     'fleet.cityNote': { en: 'airport → downtown', es: 'aeropuerto → centro' },
@@ -335,7 +335,7 @@ window.SAFAR_I18N = {
     'quote.sub': { en: 'A flat, all-inclusive price in seconds. No account needed.', es: 'Un precio fijo y todo incluido en segundos. Sin crear una cuenta.' },
     'quote.step': { en: 'Step 1 of 3 · Trip', es: 'Paso 1 de 3 · Viaje' },
     'quote.alt': { en: 'Prefer to book by phone? Call', es: '¿Prefiere reservar por teléfono? Llame al' },
-    'stats.label': { en: 'Safar in numbers', es: 'Safar en cifras' },
+    'stats.label': { en: 'LimoBay in numbers', es: 'LimoBay en cifras' },
     'stats.s1': { en: 'Reservations & dispatch', es: 'Reservas y despacho' },
     'stats.n2': { en: '{airports}', es: '{airports}' },
     'stats.s2': { en: 'US airports', es: 'Aeropuertos de EE. UU.' },
@@ -373,7 +373,7 @@ window.SAFAR_I18N = {
     'exp.c2': { en: 'Late-model vehicles', es: 'Vehículos recientes' },
     'exp.c3': { en: 'Vans for groups', es: 'Vans para grupos' },
     'exp.c4': { en: 'Door to door, day or night', es: 'Puerta a puerta, de día o de noche' },
-    'why.kicker': { en: 'Why Safar', es: 'Por qué Safar' },
+    'why.kicker': { en: 'Why LimoBay', es: 'Por qué LimoBay' },
     'why.title': { en: 'Real people.<br>Fixed prices.', es: 'Personas reales.<br>Precios fijos.' },
     'why.p1': { en: 'Every ride is booked ahead and confirmed by a real dispatcher, not an algorithm. The price you see includes tolls, taxes, airport fees and gratuity, and it never surges.', es: 'Cada viaje se reserva con antelación y lo confirma un despachador real, no un algoritmo. El precio que ve incluye peajes, impuestos, cargos del aeropuerto y propina, y nunca sube.' },
     'why.p2': { en: 'Our chauffeurs are licensed, insured and glad to help older travelers and wheelchair users. <b>On time, calm and careful.</b>', es: 'Nuestros choferes tienen licencia y seguro, y ayudan con gusto a personas mayores y usuarios de silla de ruedas. <b>Puntuales, tranquilos y cuidadosos.</b>' },
