@@ -5,9 +5,8 @@
   lang = read('lang');
   size = read('size');
   hc = read('contrast');
-  if (lang !== 'uz' && lang !== 'ru' && lang !== 'en') {
-    var n = (navigator.language || 'en').toLowerCase();
-    lang = n.indexOf('uz') === 0 ? 'uz' : /^(ru|kk|ky|tg|be|uk)/.test(n) ? 'ru' : 'en';
+  if (lang !== 'en' && lang !== 'es') {
+    lang = (navigator.language || 'en').toLowerCase().indexOf('es') === 0 ? 'es' : 'en';
   }
   d.lang = lang;
   d.setAttribute('data-size', size === 2 || size === 3 ? size : 1);
