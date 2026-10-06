@@ -35,7 +35,7 @@
   const session = makeStore(() => window.sessionStorage);
 
   // --------------------------------------------------------------------- i18n
-  let lang = ['uz', 'ru', 'en'].includes(html.lang) ? html.lang : 'en';
+  let lang = ['en', 'es'].includes(html.lang) ? html.lang : 'en';
   const VARS = {
     wait: C.freeWaitMin,
     waitPickup: C.freeWaitPickupMin,
@@ -45,6 +45,7 @@
     brand: C.brand.name,
     returnPct: Math.round(C.pricing.returnDiscount * 100),
     minHours: C.pricing.minHours,
+    maxPax: Math.max(...C.vehicles.map((v) => v.pax)),
     year: new Date().getFullYear()
   };
 
@@ -76,11 +77,8 @@
   }
 
   // ---------------------------------------------------------- money and time
-  function money(n) {
-    const s = Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, lang === 'en' ? ',' : '\u00a0');
-    return s + '\u00a0' + t('cur.som');
-  }
-  const usd = (n) => '≈ $' + Math.max(1, Math.round(n / C.usdRate));
+  // Whole dollars, US style: $1,250.
+  const money = (n) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
   function duration(min) {
     if (min < 60) return t('time.min', { n: min });
@@ -88,40 +86,45 @@
     const m = Math.round((min % 60) / 5) * 5;
     return m ? t('time.hmin', { h, m }) : t('time.h', { h });
   }
-  const kmText = (km) => (km < 10 ? Math.round(km * 10) / 10 : Math.round(km));
+  const miText = (mi) => (mi < 10 ? Math.round(mi * 10) / 10 : Math.round(mi));
 
-  // "Now" in Uzbekistan, whatever the visitor's device time zone is.
-  function nowTas() {
-    return core.localParts(Date.now());
+  // Every time on the site is local to the selected airport, whatever the visitor's device time zone is.
+  const tz = () => airportById(state.airport).tz;
+  function nowLocal() {
+    return core.localParts(Date.now(), tz());
   }
   function addDays(dateStr, n) {
     const [y, m, d] = dateStr.split('-').map(Number);
     const x = new Date(Date.UTC(y, m - 1, d + n));
     return `${x.getUTCFullYear()}-${pad(x.getUTCMonth() + 1)}-${pad(x.getUTCDate())}`;
   }
-  const epochOf = core.epochOf;
+  const epochOf = (date, time) => core.epochOf(date, time, tz());
 
   function fmtDate(dateStr) {
     const [y, m, d] = dateStr.split('-').map(Number);
     const weekday = I18N.weekdays[lang][new Date(Date.UTC(y, m - 1, d)).getUTCDay()];
     const month = I18N.months[lang][m - 1];
-    const today = nowTas().date;
+    const today = nowLocal().date;
     const otherYear = String(y) !== today.slice(0, 4);
-    let s;
-    if (lang === 'uz') s = (otherYear ? `${y}-yil ` : '') + `${d}-${month}`;
-    else s = `${d} ${month}` + (otherYear ? ` ${y}` : '');
+    const s = lang === 'es' ? `${d} de ${month}` + (otherYear ? ` de ${y}` : '') : `${month} ${d}` + (otherYear ? `, ${y}` : '');
     if (dateStr === today) return `${t('date.today')}, ${s}`;
     if (dateStr === addDays(today, 1)) return `${t('date.tomorrow')}, ${s}`;
-    return lang === 'en' ? `${weekday}, ${s}` : `${s}, ${weekday}`;
+    return `${weekday}, ${s}`;
   }
-  const fmtDateTime = (date, time) => `${fmtDate(date)} · ${time}`;
+  // 12-hour clock, as Americans read it: "3:05 PM" / "3:05 p. m."
+  function fmtTime(hhmm) {
+    const [h, m] = hhmm.split(':').map(Number);
+    const suffix = lang === 'es' ? (h < 12 ? 'a. m.' : 'p. m.') : (h < 12 ? 'AM' : 'PM');
+    return `${h % 12 || 12}:${pad(m)}\u00a0${suffix}`;
+  }
+  const fmtDateTime = (date, time) => `${fmtDate(date)} · ${fmtTime(time)}`;
   const fmtCode = (code) => String(code).replace(/^(\d{3})(\d{3})$/, '$1 $2');
 
   // -------------------------------------------------------------------- state
   function defaultState() {
     return {
       mode: 'from',
-      airport: 'TAS',
+      airport: C.airports[0].id,
       place: null,
       addressHint: '',
       when: null,
@@ -136,12 +139,14 @@
       det: {
         who: 'me', name: '', phone: '', via: 'call', email: '', bName: '', bPhone: '',
         flight: '', sign: '', signEdited: false, address: '', comment: '',
-        childSeats: 0, assist: false, driverLang: 'any', pay: 'cash', promo: ''
+        childSeats: 0, assist: false, driverLang: 'any', pay: 'card', promo: ''
       },
       booking: null
     };
   }
-  const saved = session.get('state', null);
+  let saved = session.get('state', null);
+  // Ignore a saved trip from an older version of the site (unknown airport).
+  if (saved && !C.airports.some((a) => a.id === saved.airport)) saved = null;
   const base = defaultState();
   const state = saved ? Object.assign(base, saved, {
     ret: Object.assign(base.ret, saved.ret),
@@ -227,7 +232,10 @@
   function fillTimeSelect(select, placeholder) {
     const isHour = select.id.endsWith('hour');
     let opts = `<option value="">${placeholder}</option>`;
-    for (let i = 0; i < (isHour ? 24 : 60); i += isHour ? 1 : 5) opts += `<option value="${pad(i)}">${pad(i)}</option>`;
+    for (let i = 0; i < (isHour ? 24 : 60); i += isHour ? 1 : 5) {
+      const label = isHour ? fmtTime(`${pad(i)}:00`).replace(':00', '') : pad(i);
+      opts += `<option value="${pad(i)}">${label}</option>`;
+    }
     select.innerHTML = opts;
   }
 
@@ -238,12 +246,14 @@
   }
 
   // ---------------------------------------------------------------- trip form
-  const TYPE_ICON = { center: 'i-city', hotel: 'i-hotel', station: 'i-train', district: 'i-pin', city: 'i-city', mountain: 'i-mountain', landmark: 'i-dome', airport: 'i-plane', address: 'i-pin' };
-  const MAJOR_CITIES = ['tas-center', 'samarkand-city', 'bukhara-city', 'khiva', 'fergana-city', 'namangan-city', 'andijan-city', 'nukus-city'];
+  const TYPE_ICON = { center: 'i-city', hotel: 'i-hotel', station: 'i-train', district: 'i-pin', city: 'i-city', resort: 'i-resort', landmark: 'i-dome', venue: 'i-ticket', port: 'i-ship', airport: 'i-plane', address: 'i-pin' };
+
+  // Alphabetical by city, so people find their airport quickly.
+  const airportsByCity = () => C.airports.slice().sort((a, b) => loc(a.city).localeCompare(loc(b.city), lang) || a.id.localeCompare(b.id));
 
   function renderAirportSelect() {
     const sel = $('#airport-select');
-    sel.innerHTML = C.airports.map((a) => `<option value="${a.id}">${esc(loc(a.city))} (${a.id})</option>`).join('');
+    sel.innerHTML = airportsByCity().map((a) => `<option value="${a.id}">${esc(loc(a.city))} (${a.id})</option>`).join('');
     sel.value = state.airport;
   }
 
@@ -271,7 +281,7 @@
   }
 
   function setWhen(w) {
-    const today = nowTas().date;
+    const today = nowLocal().date;
     state.when = w;
     if (w === 'today') state.date = today;
     else if (w === 'tomorrow') state.date = addDays(today, 1);
@@ -288,7 +298,7 @@
     now.textContent = t(state.mode === 'from' ? 'when.nowFrom' : 'when.nowOther');
     $('#when-detail').hidden = !state.when || state.when === 'now';
     $('#fld-date').hidden = state.when !== 'date';
-    const today = nowTas().date;
+    const today = nowLocal().date;
     const dateInput = $('#trip-date');
     dateInput.min = today;
     dateInput.max = addDays(today, 365);
@@ -298,12 +308,12 @@
   }
 
   function renderClock() {
-    $('#tz-hint').textContent = t('form.tzHint', { time: nowTas().time });
+    $('#tz-hint').textContent = t('form.tzHint', { city: loc(airportById(state.airport).city), time: fmtTime(nowLocal().time) });
   }
 
   // Steppers
   const STEPPERS = {
-    pax: { min: 1, max: 16, get: () => state.pax, set: (v) => { state.pax = v; } },
+    pax: { min: 1, max: VARS.maxPax, get: () => state.pax, set: (v) => { state.pax = v; } },
     bags: { min: 0, max: 20, get: () => state.bags, set: (v) => { state.bags = v; } },
     hours: { min: C.pricing.minHours, max: C.pricing.maxHours, get: () => state.hours, set: (v) => { state.hours = v; } },
     childSeats: { min: 0, max: 3, get: () => state.det.childSeats, set: (v) => { state.det.childSeats = v; } }
@@ -315,7 +325,7 @@
     el.querySelector('.step-val').textContent = name === 'hours' ? t('form.hoursUnit', { n: v }) : v;
     el.querySelector('[data-step="-1"]').setAttribute('aria-disabled', String(v <= s.min));
     el.querySelector('[data-step="1"]').setAttribute('aria-disabled', String(v >= s.max));
-    if (name === 'pax') $('#group-hint').hidden = v < 16;
+    if (name === 'pax') $('#group-hint').hidden = v < s.max;
   }
 
   function validateTrip(focus) {
@@ -352,7 +362,8 @@
     let ctrl = null;
     let fallbackShown = false;
 
-    const norm = (s) => String(s || '').toLowerCase().replace(/[ʻʼ'’‘`´]/g, '').replace(/ё/g, 'е').replace(/[^0-9a-zа-яўқғҳ]+/gi, ' ').trim();
+    // Lower-case, without accents or apostrophes, so "Malibu" finds "Malibú" and "fishermans" finds "Fisherman's".
+    const norm = (s) => String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/['’`´]/g, '').replace(/[^0-9a-z&]+/g, ' ').trim();
     const ref = () => airportById(state.airport);
 
     function candidates() {
@@ -366,23 +377,27 @@
     function sub(p) {
       if (p.type === 'address') return p.sub || t('type.address');
       if (p.type === 'airport') return t('type.airport');
-      const km = Math.max(1, Math.round(P.roadKm(ref(), p)));
-      return `${t('type.' + p.type)} · ${t('pick.km', { km })}`;
+      const mi = Math.max(1, Math.round(P.roadMiles(ref(), p)));
+      return `${t('type.' + p.type)} · ${t('pick.mi', { mi })}`;
     }
 
     function popular() {
       const r = ref();
-      const all = candidates().map((p) => ({ p, d: P.haversineKm(r, p) }));
-      const near = all.filter((x) => x.d <= 90 && x.p.top).sort((a, b) => a.p.top - b.p.top || a.d - b.d).slice(0, 7).map((x) => x.p);
-      const cities = MAJOR_CITIES.map((id) => all.find((x) => x.p.id === id)).filter((x) => x && x.d > 90).slice(0, 4).map((x) => x.p);
+      const all = candidates().map((p) => ({ p, d: P.haversineMiles(r, p) }));
+      const near = all.filter((x) => x.d <= 50 && x.p.top).sort((a, b) => a.p.top - b.p.top || a.d - b.d).slice(0, 7).map((x) => x.p);
+      const cities = all
+        .filter((x) => x.d > 50 && x.d <= 300 && ['city', 'center', 'resort'].includes(x.p.type))
+        .sort((a, b) => a.d - b.d)
+        .slice(0, 4)
+        .map((x) => x.p);
       return [{ title: t('pick.popular'), items: near }, { title: t('pick.cities'), items: cities }];
     }
 
     function nearby() {
       const r = ref();
       return candidates()
-        .map((p) => ({ p, d: P.haversineKm(r, p) }))
-        .filter((x) => x.d <= 60 && x.p.type !== 'airport')
+        .map((p) => ({ p, d: P.haversineMiles(r, p) }))
+        .filter((x) => x.d <= 40 && x.p.type !== 'airport')
         .sort((a, b) => (a.p.type === 'district' ? 0 : 1) - (b.p.type === 'district' ? 0 : 1) || a.d - b.d)
         .slice(0, 12)
         .map((x) => x.p);
@@ -394,13 +409,13 @@
       const r = ref();
       return candidates()
         .map((p) => {
-          const hay = ' ' + norm([p.name.en, p.name.ru, p.name.uz, p.alias].join(' '));
+          const hay = ' ' + norm([p.name.en, p.name.es, p.alias].join(' '));
           let score = 0;
           tokens.forEach((tk) => {
             if (hay.includes(' ' + tk)) score += 2;
             else if (hay.includes(tk)) score += 1;
           });
-          return { p, score, d: P.haversineKm(r, p) };
+          return { p, score, d: P.haversineMiles(r, p) };
         })
         .filter((x) => x.score > 0)
         .sort((a, b) => b.score - a.score || a.d - b.d)
@@ -412,7 +427,8 @@
       if (ctrl) ctrl.abort();
       ctrl = new AbortController();
       const r = ref();
-      const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=7&lat=${r.lat}&lon=${r.lon}&bbox=55.9,37.1,73.2,45.6${lang === 'en' ? '&lang=en' : ''}`;
+      const b = C.bounds;
+      const url = `https://photon.komoot.io/api/?q=${encodeURIComponent(q)}&limit=7&lat=${r.lat}&lon=${r.lon}&bbox=${b.minLon},${b.minLat},${b.maxLon},${b.maxLat}&lang=en`;
       const timer = setTimeout(() => ctrl.abort(), 6000);
       try {
         const res = await fetch(url, { signal: ctrl.signal });
@@ -420,7 +436,7 @@
         const data = await res.json();
         const seen = new Set();
         return (data.features || [])
-          .filter((f) => !f.properties.countrycode || f.properties.countrycode === 'UZ')
+          .filter((f) => !f.properties.countrycode || f.properties.countrycode === C.countryCode)
           .map((f) => {
             const pr = f.properties || {};
             const [lon, lat] = f.geometry.coordinates;
@@ -600,14 +616,14 @@
       const ap = airportById(r.airport);
       const pl = C.places.find((p) => p.id === r.place);
       if (!pl) return '';
-      const km = P.roadKm(ap, pl);
-      const price = P.tripPrice(C.vehicles[0], km);
+      const mi = P.roadMiles(ap, pl);
+      const price = P.tripPrice(C.vehicles[0], mi);
       return `<button type="button" class="route-card" data-route="${i}">
         <span class="route-top"><span class="code-badge">${icon('i-plane')}${ap.id}</span>${esc(loc(ap.city))}</span>
         <span class="route-title">${esc(placeName(pl))}</span>
-        <span class="route-meta">${t('route.meta', { km: Math.round(km), time: duration(P.estimateMinutes(km)) })}</span>
+        <span class="route-meta">${t('route.meta', { mi: Math.round(mi), time: duration(P.estimateMinutes(mi)) })}</span>
         <span class="route-bottom">
-          <span class="route-price">${t('fleet.from', { price: money(price) })}<small>${usd(price)}</small></span>
+          <span class="route-price">${t('fleet.from', { price: money(price) })}<small>${esc(t('car.' + C.vehicles[0].id))}</small></span>
           <span class="route-go">${icon('i-arrow-right')}</span>
         </span>
       </button>`;
@@ -615,7 +631,7 @@
   }
 
   function renderAirports() {
-    $('#airports-grid').innerHTML = C.airports.map((a) => `
+    $('#airports-grid').innerHTML = airportsByCity().map((a) => `
       <button type="button" class="airport-card" data-airport="${a.id}">
         <span class="airport-code">${a.id}</span>
         <span class="airport-text"><b>${esc(loc(a.city))}</b><small>${esc(loc(a.name))}</small></span>
@@ -724,16 +740,16 @@
   function routeInfo(a, b) {
     const key = routeKey(a, b);
     if (!routeCache.has(key)) {
-      const km = P.roadKm(a, b);
-      const info = { km, min: P.estimateMinutes(km), coords: null };
+      const mi = P.roadMiles(a, b);
+      const info = { mi, min: P.estimateMinutes(mi), coords: null };
       routeCache.set(key, info);
       fetch(`https://router.project-osrm.org/route/v1/driving/${a.lon},${a.lat};${b.lon},${b.lat}?overview=simplified&geometries=geojson`)
         .then((r) => (r.ok ? r.json() : null))
         .then((d) => {
           const r0 = d && d.routes && d.routes[0];
           if (!r0) return;
-          info.km = r0.distance / 1000;
-          // Free routing has no traffic data; Tashkent roads are slower than the ideal.
+          info.mi = r0.distance / 1609.344;
+          // Free routing has no traffic data; real city traffic is slower than the ideal.
           info.min = Math.max(5, Math.round((r0.duration / 60) * 1.3 / 5) * 5);
           info.coords = r0.geometry.coordinates.map(([lo, la]) => [la, lo]);
           const p = points();
@@ -824,7 +840,7 @@
     const p = points();
     if (p.to) {
       const info = routeInfo(p.from, p.to);
-      rows.push([t('sum.distance'), esc(t('sum.roadTime', { km: kmText(info.km), time: duration(info.min) }))]);
+      rows.push([t('sum.distance'), esc(t('sum.roadTime', { mi: miText(info.mi), time: duration(info.min) }))]);
     }
     if (state.vehicle) rows.push([t('sum.car'), esc(t('car.' + state.vehicle))]);
     if (state.ret.on && state.ret.date && state.ret.hour && state.ret.min) rows.push([t('sum.return'), esc(fmtDateTime(state.ret.date, `${state.ret.hour}:${state.ret.min}`))]);
@@ -838,12 +854,12 @@
         if (q.returnPrice) lines += `<div class="sum-line"><span>${t('sum.returnLine')}</span><span>${money(q.returnPrice)}</span></div>`;
         if (q.discount) lines += `<div class="sum-line discount"><span>${t('sum.promoLine', { code: esc(q.promo) })}</span><span>−${money(q.discount)}</span></div>`;
       }
-      price = `${lines}<div class="sum-total"><span>${t('common.total')}</span><b>${money(q.total)}</b></div><div class="sum-usd">${usd(q.total)}</div>`;
+      price = `${lines}<div class="sum-total"><span>${t('common.total')}</span><b>${money(q.total)}</b></div>`;
     }
 
     const inc = state.mode === 'from'
-      ? ['inc.sign', 'inc.waitFrom', 'inc.flight', 'inc.cancel', 'inc.seats', 'inc.fuel', 'inc.pay']
-      : ['inc.door', 'inc.waitTo', 'inc.cancel', 'inc.seats', 'inc.fuel', 'inc.pay'];
+      ? ['inc.sign', 'inc.waitFrom', 'inc.flight', 'inc.allIn', 'inc.cancel', 'inc.seats', 'inc.pay']
+      : ['inc.door', 'inc.waitTo', 'inc.allIn', 'inc.cancel', 'inc.seats', 'inc.pay'];
 
     $('#summary-body').innerHTML = `
       <dl class="sum-list">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>
@@ -863,7 +879,7 @@
 
   function updateTotals() {
     const out = vehicleOk() ? quoteFor(state.vehicle) : null;
-    const text = out ? `${money(out.total)}<span class="usd">${usd(out.total)}</span>` : '—';
+    const text = out ? money(out.total) : '—';
     $('#car-total').innerHTML = text;
     $('#details-total').innerHTML = text;
   }
@@ -897,7 +913,7 @@
           ${reason ? `<span class="car-nofit">${esc(reason)}</span>` : ''}
         </span>
         <span class="car-price">
-          <span class="car-price-amount"><b>${money(prices[v.id])}</b><small>${usd(prices[v.id])}</small></span>
+          <span class="car-price-amount"><b>${money(prices[v.id])}</b></span>
           <span class="car-pick">${selected ? icon('i-check') + t('car.selected') : t('car.choose')}</span>
         </span>
       </button>`;
@@ -927,10 +943,10 @@
     $('#return-toggle').checked = state.ret.on;
     $('#return-fields').hidden = !state.ret.on;
     $('#return-label').textContent = t(state.mode === 'from' ? 'car.returnTo' : 'car.returnFrom');
-    const minDate = state.when === 'now' ? nowTas().date : state.date;
+    const minDate = state.when === 'now' ? nowLocal().date : state.date;
     const d = $('#return-date');
     d.min = minDate;
-    d.max = addDays(nowTas().date, 365);
+    d.max = addDays(nowLocal().date, 365);
     d.value = state.ret.date;
     $('#return-hour').value = state.ret.hour;
     $('#return-min').value = state.ret.min;
@@ -1112,11 +1128,11 @@
     const extras = [];
     if (b.childSeats) extras.push(`${t('det.childSeat')} × ${b.childSeats}`);
     if (b.assist) extras.push(t('det.assist'));
-    if (b.driverLang && b.driverLang !== 'any') extras.push(`${t('det.lang')}: ${t({ uz: 'det.langUz', ru: 'det.langRu', en: 'det.langEn' }[b.driverLang])}`);
+    if (b.driverLang && b.driverLang !== 'any') extras.push(`${t('det.lang')}: ${t({ en: 'det.langEn', es: 'det.langEs' }[b.driverLang])}`);
     if (extras.length) rows.push([t('det.extras'), esc(extras.join(', '))]);
     if (b.comment) rows.push([t('det.comment'), esc(b.comment)]);
-    rows.push([t('done.payment'), esc(t(PAY_KEYS[b.pay] || 'pay.cash'))]);
-    rows.push([t('done.price'), `<b>${money(b.price.total)}</b> <span class="opt">${usd(b.price.total)}</span>`]);
+    rows.push([t('done.payment'), esc(t(PAY_KEYS[b.pay] || 'pay.card'))]);
+    rows.push([t('done.price'), `<b>${money(b.price.total)}</b>`]);
     return rows;
   }
   const kv = (rows) => `<dl class="kv">${rows.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${v}</dd></div>`).join('')}</dl>`;
@@ -1134,9 +1150,6 @@
       n3
     ].map(([title, text]) => `<li><b>${esc(title)}</b><span>${esc(text)}</span></li>`).join('');
     $('#done-summary').innerHTML = `<h2 class="panel-title">${t('done.details')}</h2>${kv(bookingRows(b))}`;
-    const shareText = t('done.shareText', { code: fmtCode(b.code), route: bookingRoute(b), when: bookingWhen(b) });
-    const shareUrl = STATIC_DEMO ? location.href.split('#')[0] : C.brand.siteUrl;
-    $('#done-share').href = `https://t.me/share/url?url=${encodeURIComponent(shareUrl)}&text=${encodeURIComponent(shareText)}`;
     $('#done-return').hidden = b.mode === 'hourly' || !!b.ret;
   }
 
@@ -1144,7 +1157,7 @@
     const stamp = (ts) => new Date(ts).toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
     const escIcs = (s) => String(s).replace(/\\/g, '\\\\').replace(/\n/g, '\\n').replace(/([,;])/g, '\\$1');
     const ap = C.airports.find((a) => a.id === b.airport);
-    const minutes = b.mode === 'hourly' ? b.hours * 60 : P.estimateMinutes(b.price.km || 10);
+    const minutes = b.mode === 'hourly' ? b.hours * 60 : P.estimateMinutes(b.price.mi || 10);
     const event = (uid, start, from, title) => [
       'BEGIN:VEVENT',
       `UID:${uid}@safar`,
@@ -1180,6 +1193,24 @@
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  // Native share sheet on phones; elsewhere copy the details to the clipboard.
+  async function shareBooking() {
+    const b = state.booking;
+    if (!b) return;
+    const text = t('done.shareText', { code: fmtCode(b.code), route: bookingRoute(b), when: bookingWhen(b) });
+    const url = STATIC_DEMO ? location.href.split('#')[0] : C.brand.siteUrl;
+    if (navigator.share) {
+      try { await navigator.share({ title: C.brand.name, text, url }); } catch (e) { /* share sheet closed */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(`${text}\n${url}`);
+      toast(t('common.copied'));
+    } catch (e) {
+      window.prompt(t('done.share'), `${text} ${url}`);
+    }
   }
 
   function bookReturn() {
@@ -1341,7 +1372,7 @@
     $$('[data-brand="phone"]').forEach((el) => { el.textContent = b.phone; });
     $$('[data-brand="email"]').forEach((el) => { el.textContent = b.email; });
     $$('[data-tel]').forEach((el) => { el.href = 'tel:' + b.phoneHref; });
-    $$('[data-tg]').forEach((el) => { el.href = 'https://t.me/' + b.telegram; });
+    $$('[data-sms]').forEach((el) => { el.href = 'sms:' + b.sms; });
     $$('[data-wa]').forEach((el) => { el.href = 'https://wa.me/' + b.whatsapp; });
     $$('[data-mail]').forEach((el) => { el.href = 'mailto:' + b.email; });
   }
@@ -1386,6 +1417,9 @@
     $('#swap-btn').addEventListener('click', () => setMode(state.mode === 'from' ? 'to' : 'from'));
     $('#airport-select').addEventListener('change', (e) => {
       state.airport = e.target.value;
+      // "Today" depends on the airport's time zone.
+      if (state.when === 'today' || state.when === 'tomorrow') setWhen(state.when);
+      renderClock();
       saveState();
     });
     $$('.when-chips [data-when]').forEach((b) => b.addEventListener('click', () => setWhen(b.dataset.when)));
@@ -1420,7 +1454,7 @@
     });
     $('#return-toggle').addEventListener('change', (e) => {
       state.ret.on = e.target.checked;
-      if (state.ret.on && !state.ret.date) state.ret.date = state.when === 'now' ? nowTas().date : state.date;
+      if (state.ret.on && !state.ret.date) state.ret.date = state.when === 'now' ? nowLocal().date : state.date;
       renderReturn();
       setError('return', '');
       updateTotals();
@@ -1484,18 +1518,22 @@
     $('#promo').addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); $('#promo-apply').click(); } });
     $('#step-details').addEventListener('submit', (e) => { e.preventDefault(); submitBooking(); });
 
-    // Phone fields: offer the Uzbek prefix, tidy the number on blur.
+    // Phone fields: offer the home prefix, tidy the number on blur.
+    // If the visitor types their own country code after the prefix, drop ours.
+    const prefixRe = C.phonePrefix.replace(/[+]/g, '\\+');
+    const PREFIX_THEN_CODE = new RegExp('^' + prefixRe + '\\s*(\\+|00)');
+    const PREFIX_ONLY = new RegExp('^' + prefixRe + '\\s*');
     $$('[data-phone]').forEach((input) => {
-      input.addEventListener('focus', () => { if (!input.value) input.value = '+998 '; });
+      input.addEventListener('focus', () => { if (!input.value) input.value = C.phonePrefix + ' '; });
       input.addEventListener('input', () => {
-        if (/^\+998\s*(\+|00)/.test(input.value)) {
-          input.value = input.value.replace(/^\+998\s*/, '');
+        if (PREFIX_THEN_CODE.test(input.value)) {
+          input.value = input.value.replace(PREFIX_ONLY, '');
           input.dispatchEvent(new Event('input', { bubbles: true }));
         }
       });
       input.addEventListener('blur', () => {
         const v = input.value.trim();
-        if (v === '+998' || v === '+') input.value = '';
+        if (v === C.phonePrefix || v === '+') input.value = '';
         else if (core.normPhone(v)) input.value = core.fmtPhone(core.normPhone(v));
         input.dispatchEvent(new Event('input', { bubbles: true }));
       });
@@ -1558,7 +1596,7 @@
       if (el.dataset.airport) {
         state.airport = el.dataset.airport;
         if (state.mode === 'hourly') setMode('from');
-        if (state.place && P.haversineKm(airportById(state.airport), state.place) > 150 && state.place.type !== 'city') state.place = null;
+        if (state.place && P.haversineMiles(airportById(state.airport), state.place) > 100 && state.place.type !== 'city') state.place = null;
         syncTripForm();
         saveState();
         scrollToForm('#place-input');
@@ -1636,6 +1674,9 @@
         case 'print':
           window.print();
           break;
+        case 'share':
+          shareBooking();
+          break;
         case 'book-return':
           bookReturn();
           break;
@@ -1687,7 +1728,7 @@
     robots.content = 'noindex';
     document.head.appendChild(robots);
     document.addEventListener('click', (e) => {
-      if (!e.target.closest('[data-tel], [data-tg], [data-wa], [data-mail]')) return;
+      if (!e.target.closest('[data-tel], [data-sms], [data-wa], [data-mail]')) return;
       e.preventDefault();
       toast(t('demo.contacts'));
     }, true);

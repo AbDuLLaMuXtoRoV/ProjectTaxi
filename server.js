@@ -147,42 +147,55 @@ function readJson(req, limit) {
 
 // What a customer may see about their own booking.
 function publicView(b) {
-  const { code, status, createdAt, mode, airport, place, asap, date, time, pickupAt, pax, bags, hours, vehicle, ret, passenger, booker, via, email, flight, sign, address, comment, childSeats, assist, driverLang, pay, lang, price } = b;
-  return { code, status, createdAt, mode, airport, place, asap, date, time, pickupAt, pax, bags, hours, vehicle, ret, passenger, booker, via, email, flight, sign, address, comment, childSeats, assist, driverLang, pay, lang, price };
+  const { code, status, createdAt, mode, airport, tz, place, asap, date, time, pickupAt, pax, bags, hours, vehicle, ret, passenger, booker, via, email, flight, sign, address, comment, childSeats, assist, driverLang, pay, lang, price } = b;
+  return { code, status, createdAt, mode, airport, tz, place, asap, date, time, pickupAt, pax, bags, hours, vehicle, ret, passenger, booker, via, email, flight, sign, address, comment, childSeats, assist, driverLang, pay, lang, price };
 }
 
 // ----------------------------------------------------------------- telegram
 const escHtml = (s) => String(s == null ? '' : s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const som = (n) => Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' сум';
-const MODE_RU = { from: '✈️ Из аэропорта', to: '🛫 В аэропорт', hourly: '⏱ Почасовая' };
-const PAY_RU = { cash: 'наличные', card: 'карта', app: 'Payme / Click / Uzum' };
-const VIA_RU = { call: 'звонок', telegram: 'Telegram', whatsapp: 'WhatsApp' };
-const CAR_RU = { economy: 'Эконом', comfort: 'Комфорт', minivan: 'Минивэн', business: 'Бизнес', premium: 'Премиум', minibus: 'Микроавтобус' };
+const usd = (n) => '$' + Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+const time12 = (hhmm) => {
+  const [h, m] = hhmm.split(':').map(Number);
+  return `${h % 12 || 12}:${String(m).padStart(2, '0')} ${h < 12 ? 'AM' : 'PM'}`;
+};
+const usDate = (d) => { const [y, m, day] = d.split('-'); return `${m}/${day}/${y}`; };
+const MODE_EN = { from: '✈️ From airport', to: '🛫 To airport', hourly: '⏱ By the hour' };
+const PAY_EN = { card: 'card', app: 'Apple Pay / Google Pay', cash: 'cash' };
+const VIA_EN = { call: 'call', sms: 'text', whatsapp: 'WhatsApp' };
+const CAR_EN = { standard: 'Standard Sedan', business: 'Business Sedan', suv: 'SUV', first: 'First Class', 'premium-suv': 'Premium SUV', sprinter: 'Sprinter Van' };
+const carName = (id) => CAR_EN[id] || id;
+
+function routeText(b, short) {
+  const ap = config.airports.find((a) => a.id === b.airport);
+  const apText = ap ? (short ? ap.id : `${ap.id} (${ap.city.en})`) : '';
+  if (b.mode === 'from') return `${apText} → ${b.place.name}`;
+  if (b.mode === 'to') return `${b.place.name} → ${apText}`;
+  return `${b.place.name}, ${b.hours} hr`;
+}
 
 function bookingMessage(b, title) {
   const ap = config.airports.find((a) => a.id === b.airport);
-  const apText = ap ? `${ap.city.ru} (${ap.id})` : '';
-  const route = b.mode === 'from' ? `${apText} → ${b.place.name}` : b.mode === 'to' ? `${b.place.name} → ${apText}` : `${b.place.name}, ${b.hours} ч`;
-  const when = b.asap ? `<b>СРОЧНО</b>, к ${b.time}` : `${b.date.split('-').reverse().join('.')} ${b.time}`;
+  const local = ap ? ` (${ap.city.en} time)` : '';
+  const when = `${b.asap ? '<b>ASAP</b>, by ' : ''}${usDate(b.date)} ${time12(b.time)}${local}`;
   const lines = [
-    `${title} <b>№${b.code}</b>`,
-    `${MODE_RU[b.mode]}: ${escHtml(route)}`,
-    `🕒 ${when}${b.flight ? ` · рейс ${escHtml(b.flight)}` : ''}`,
-    `🚗 ${CAR_RU[b.vehicle]} · 👤 ${b.pax} · 🧳 ${b.bags}`,
-    `👤 ${escHtml(b.passenger.name)} ${core.fmtPhone(b.passenger.phone)} (${VIA_RU[b.via]})`
+    `${title} <b>#${b.code}</b>`,
+    `${MODE_EN[b.mode]}: ${escHtml(routeText(b))}`,
+    `🕒 ${when}${b.flight ? ` · flight ${escHtml(b.flight)}` : ''}`,
+    `🚗 ${carName(b.vehicle)} · 👤 ${b.pax} · 🧳 ${b.bags}`,
+    `👤 ${escHtml(b.passenger.name)} ${core.fmtPhone(b.passenger.phone)} (${VIA_EN[b.via]})`
   ];
-  if (b.booker) lines.push(`📞 Заказчик: ${escHtml(b.booker.name)} ${core.fmtPhone(b.booker.phone)}`);
-  if (b.sign) lines.push(`🪧 Табличка: ${escHtml(b.sign)}`);
+  if (b.booker) lines.push(`📞 Booked by: ${escHtml(b.booker.name)} ${core.fmtPhone(b.booker.phone)}`);
+  if (b.sign) lines.push(`🪧 Sign: ${escHtml(b.sign)}`);
   if (b.address) lines.push(`📍 ${escHtml(b.address)}`);
-  if (b.ret) lines.push(`↩️ Обратно: ${b.ret.date.split('-').reverse().join('.')} ${b.ret.time}`);
+  if (b.ret) lines.push(`↩️ Return: ${usDate(b.ret.date)} ${time12(b.ret.time)}`);
   const extras = [];
-  if (b.childSeats) extras.push(`детское кресло × ${b.childSeats}`);
-  if (b.assist) extras.push('помощь пожилому / коляска');
-  if (b.driverLang !== 'any') extras.push(`водитель: ${b.driverLang.toUpperCase()}`);
+  if (b.childSeats) extras.push(`child seat × ${b.childSeats}`);
+  if (b.assist) extras.push('senior / wheelchair assistance');
+  if (b.driverLang !== 'any') extras.push(`chauffeur speaks ${b.driverLang.toUpperCase()}`);
   if (extras.length) lines.push(`➕ ${extras.join(', ')}`);
   if (b.comment) lines.push(`💬 ${escHtml(b.comment)}`);
-  lines.push(`💰 <b>${som(b.price.total)}</b> · ${PAY_RU[b.pay]}${b.price.promo ? ` · промокод ${escHtml(b.price.promo)}` : ''}`);
-  lines.push(`🌐 Язык клиента: ${b.lang.toUpperCase()}${b.email ? ` · ${escHtml(b.email)}` : ''}`);
+  lines.push(`💰 <b>${usd(b.price.total)}</b> · ${PAY_EN[b.pay]}${b.price.promo ? ` · promo ${escHtml(b.price.promo)}` : ''}`);
+  lines.push(`🌐 Customer language: ${b.lang.toUpperCase()}${b.email ? ` · ${escHtml(b.email)}` : ''}`);
   return lines.join('\n');
 }
 
@@ -216,7 +229,7 @@ async function handleApi(req, res, url) {
     const booking = Object.assign({ code: core.newCode((c) => !!findBooking(c)), createdAt: new Date().toISOString() }, result.booking, { history: [{ at: new Date().toISOString(), status: 'new' }] });
     db.bookings.push(booking);
     await persist();
-    notify(bookingMessage(booking, '🆕 Новый заказ'));
+    notify(bookingMessage(booking, '🆕 New booking'));
     console.log(`Booking ${booking.code}: ${booking.mode} ${booking.airport} ${booking.vehicle} ${booking.price.total}`);
     return sendJson(res, 201, { booking: publicView(booking) });
   }
@@ -237,7 +250,7 @@ async function handleApi(req, res, url) {
       b.status = 'cancelled';
       (b.history = b.history || []).push({ at: new Date().toISOString(), status: 'cancelled', by: 'customer' });
       await persist();
-      notify(`❌ Клиент отменил заказ <b>№${b.code}</b>\n${escHtml(b.passenger.name)} ${core.fmtPhone(b.passenger.phone)}`);
+      notify(`❌ Customer cancelled booking <b>#${b.code}</b>\n${escHtml(b.passenger.name)} ${core.fmtPhone(b.passenger.phone)}`);
       return sendJson(res, 200, { booking: publicView(b) });
     }
   }
@@ -247,10 +260,10 @@ async function handleApi(req, res, url) {
     const body = await readJson(req, 2000);
     const phone = core.normPhone(body.phone);
     if (!phone) return sendJson(res, 400, { error: 'phone', field: 'cb-phone' });
-    const item = { id: crypto.randomUUID(), at: new Date().toISOString(), name: String(body.name || '').trim().slice(0, 80), phone, lang: ['uz', 'ru', 'en'].includes(body.lang) ? body.lang : 'ru', done: false };
+    const item = { id: crypto.randomUUID(), at: new Date().toISOString(), name: String(body.name || '').trim().slice(0, 80), phone, lang: ['en', 'es'].includes(body.lang) ? body.lang : 'en', done: false };
     db.callbacks.push(item);
     await persist();
-    notify(`📞 <b>Перезвонить</b>: ${core.fmtPhone(phone)}${item.name ? ` — ${escHtml(item.name)}` : ''} (язык: ${item.lang.toUpperCase()})`);
+    notify(`📞 <b>Call back</b>: ${core.fmtPhone(phone)}${item.name ? ` — ${escHtml(item.name)}` : ''} (language: ${item.lang.toUpperCase()})`);
     return sendJson(res, 201, { ok: true });
   }
 
@@ -259,7 +272,7 @@ async function handleApi(req, res, url) {
 
 // -------------------------------------------------------------------- admin
 const STATUSES = ['new', 'confirmed', 'assigned', 'completed', 'cancelled'];
-const STATUS_RU = { new: 'Новый', confirmed: 'Подтверждён', assigned: 'Водитель назначен', completed: 'Выполнен', cancelled: 'Отменён' };
+const STATUS_EN = { new: 'New', confirmed: 'Confirmed', assigned: 'Chauffeur assigned', completed: 'Completed', cancelled: 'Cancelled' };
 
 function adminAuthorized(req) {
   const header = req.headers.authorization || '';
@@ -272,22 +285,20 @@ function adminAuthorized(req) {
 
 function adminPage() {
   const rows = db.bookings.slice().sort((a, b) => Date.parse(b.pickupAt) - Date.parse(a.pickupAt)).map((b) => {
-    const ap = config.airports.find((a) => a.id === b.airport);
-    const route = b.mode === 'from' ? `${ap ? ap.id : ''} → ${b.place.name}` : b.mode === 'to' ? `${b.place.name} → ${ap ? ap.id : ''}` : `${b.place.name} · ${b.hours} ч`;
-    const buttons = STATUSES.filter((s) => s !== b.status).map((s) => `<button name="status" value="${s}">${STATUS_RU[s]}</button>`).join('');
+    const buttons = STATUSES.filter((s) => s !== b.status).map((s) => `<button name="status" value="${s}">${STATUS_EN[s]}</button>`).join('');
     return `<tr class="st-${b.status}">
-      <td><b>${b.code}</b><br><small>${escHtml(b.createdAt.slice(0, 16).replace('T', ' '))}</small></td>
-      <td>${b.asap ? '<b>СРОЧНО</b><br>' : ''}${escHtml(b.date)} ${escHtml(b.time)}${b.flight ? `<br>✈ ${escHtml(b.flight)}` : ''}</td>
-      <td>${escHtml(route)}${b.ret ? `<br><small>↩ ${escHtml(b.ret.date)} ${escHtml(b.ret.time)}</small>` : ''}${b.address ? `<br><small>📍 ${escHtml(b.address)}</small>` : ''}</td>
-      <td>${CAR_RU[b.vehicle]}<br><small>👤${b.pax} 🧳${b.bags}${b.childSeats ? ` 👶${b.childSeats}` : ''}${b.assist ? ' ♿' : ''}</small></td>
-      <td>${escHtml(b.passenger.name)}<br><a href="tel:${b.passenger.phone}">${core.fmtPhone(b.passenger.phone)}</a> <small>${VIA_RU[b.via]}</small>${b.booker ? `<br><small>Заказчик: ${escHtml(b.booker.name)} ${core.fmtPhone(b.booker.phone)}</small>` : ''}${b.comment ? `<br><small>💬 ${escHtml(b.comment)}</small>` : ''}</td>
-      <td><b>${som(b.price.total)}</b><br><small>${PAY_RU[b.pay]}</small></td>
-      <td><span class="st">${STATUS_RU[b.status]}</span><form method="post" action="/admin/bookings/${b.code}">${buttons}</form></td>
+      <td><b>${b.code}</b><br><small>${escHtml(b.createdAt.slice(0, 16).replace('T', ' '))} UTC</small></td>
+      <td>${b.asap ? '<b>ASAP</b><br>' : ''}${usDate(b.date)} ${time12(b.time)}<br><small>${escHtml(b.airport)} local time</small>${b.flight ? `<br>✈ ${escHtml(b.flight)}` : ''}</td>
+      <td>${escHtml(routeText(b, true))}${b.ret ? `<br><small>↩ ${usDate(b.ret.date)} ${time12(b.ret.time)}</small>` : ''}${b.address ? `<br><small>📍 ${escHtml(b.address)}</small>` : ''}</td>
+      <td>${carName(b.vehicle)}<br><small>👤${b.pax} 🧳${b.bags}${b.childSeats ? ` 👶${b.childSeats}` : ''}${b.assist ? ' ♿' : ''}</small></td>
+      <td>${escHtml(b.passenger.name)}<br><a href="tel:${b.passenger.phone}">${core.fmtPhone(b.passenger.phone)}</a> <small>${VIA_EN[b.via]}</small>${b.booker ? `<br><small>Booked by: ${escHtml(b.booker.name)} ${core.fmtPhone(b.booker.phone)}</small>` : ''}${b.comment ? `<br><small>💬 ${escHtml(b.comment)}</small>` : ''}</td>
+      <td><b>${usd(b.price.total)}</b><br><small>${PAY_EN[b.pay]}</small></td>
+      <td><span class="st">${STATUS_EN[b.status]}</span><form method="post" action="/admin/bookings/${b.code}">${buttons}</form></td>
     </tr>`;
   }).join('');
-  const callbacks = db.callbacks.filter((c) => !c.done).map((c) => `<li><a href="tel:${c.phone}">${core.fmtPhone(c.phone)}</a> ${escHtml(c.name)} <small>${escHtml(c.at.slice(0, 16).replace('T', ' '))} · ${c.lang}</small>
-    <form method="post" action="/admin/callbacks/${c.id}"><button>Готово</button></form></li>`).join('');
-  return `<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Safar — заказы</title>
+  const callbacks = db.callbacks.filter((c) => !c.done).map((c) => `<li><a href="tel:${c.phone}">${core.fmtPhone(c.phone)}</a> ${escHtml(c.name)} <small>${escHtml(c.at.slice(0, 16).replace('T', ' '))} UTC · ${c.lang}</small>
+    <form method="post" action="/admin/callbacks/${c.id}"><button>Done</button></form></li>`).join('');
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Safar — bookings</title>
   <style>
     body{font:15px/1.45 system-ui,sans-serif;margin:0;background:#FAF6EE;color:#12203A}
     header{background:#0A1A33;color:#fff;padding:14px 20px;display:flex;justify-content:space-between;align-items:center}
@@ -298,11 +309,11 @@ function adminPage() {
     button{font:inherit;font-size:12px;margin:2px;padding:4px 8px;border:1px solid #C7BAA2;border-radius:6px;background:#fff;cursor:pointer}
     ul{background:#fff;border-radius:12px;padding:12px 32px}li form{display:inline}h2{font-size:18px}a{color:#0B6E79}
   </style></head><body>
-  <header><b>Safar · заказы</b><span>${db.bookings.length} всего</span></header>
+  <header><b>Safar · bookings</b><span>${db.bookings.length} total</span></header>
   <main>
-    ${callbacks ? `<h2>Перезвонить</h2><ul>${callbacks}</ul>` : ''}
-    <h2>Заказы</h2>
-    <table><thead><tr><th>№</th><th>Когда</th><th>Маршрут</th><th>Машина</th><th>Клиент</th><th>Цена</th><th>Статус</th></tr></thead><tbody>${rows || '<tr><td colspan="7">Заказов пока нет</td></tr>'}</tbody></table>
+    ${callbacks ? `<h2>Call back</h2><ul>${callbacks}</ul>` : ''}
+    <h2>Bookings</h2>
+    <table><thead><tr><th>#</th><th>When</th><th>Route</th><th>Vehicle</th><th>Customer</th><th>Price</th><th>Status</th></tr></thead><tbody>${rows || '<tr><td colspan="7">No bookings yet</td></tr>'}</tbody></table>
   </main></body></html>`;
 }
 
