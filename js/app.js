@@ -46,6 +46,7 @@
     returnPct: Math.round(C.pricing.returnDiscount * 100),
     minHours: C.pricing.minHours,
     maxPax: Math.max(...C.vehicles.map((v) => v.pax)),
+    airports: C.airports.length,
     year: new Date().getFullYear()
   };
 
@@ -65,6 +66,7 @@
     $$('.lang-switch [data-lang]').forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.lang === lang)));
     $('#copyright').textContent = t('footer.rights');
     document.title = t('meta.title');
+    if (typeof fitHeader === 'function') fitHeader();
   }
 
   function setLang(next) {
@@ -589,26 +591,50 @@
   })();
 
   // ------------------------------------------------------------- home sections
+  const carPhoto = (v, lazy) => `<img src="img/fleet/${v.id}.webp" alt="" width="1200" height="700"${lazy ? ' loading="lazy"' : ''} decoding="async">`;
+
   function renderFleet() {
     $('#fleet-grid').innerHTML = C.vehicles.map((v) => `
       <article class="fleet-card">
-        <div class="car-art car--${v.id}"><svg viewBox="0 0 240 100" aria-hidden="true"><use href="#car-${v.body}"/></svg></div>
-        <div class="fleet-top">
-          <h3>${t('car.' + v.id)}</h3>
-          <div class="fleet-price"><b>${t('fleet.from', { price: money(v.min) })}</b><small>${t('fleet.cityNote')}</small></div>
+        <div class="fleet-photo">${carPhoto(v, true)}</div>
+        <div class="fleet-body">
+          <div class="fleet-top">
+            <h3>${t('car.' + v.id)}</h3>
+            <span class="fleet-seats">${t('fleet.seats', { n: v.pax })}</span>
+          </div>
+          <p class="car-models">${esc(v.models)} ${t('car.orSimilar')}</p>
+          <div class="car-cap">
+            <span title="${esc(t('cap.pax', { n: v.pax }))}">${icon('i-users')}${v.pax}<span class="sr-only"> — ${esc(t('cap.pax', { n: v.pax }))}</span></span>
+            <span title="${esc(t('cap.bags', { n: v.bags }))}">${icon('i-luggage')}${v.bags}<span class="sr-only"> — ${esc(t('cap.bags', { n: v.bags }))}</span></span>
+          </div>
+          <ul class="car-feats">
+            <li>${icon('i-check')}${t(`car.${v.id}.f1`)}</li>
+            <li>${icon('i-check')}${t(`car.${v.id}.f2`)}</li>
+            <li>${icon('i-check')}${t('fleet.hour', { price: money(v.hour) })}</li>
+          </ul>
+          <div class="fleet-foot">
+            <span class="fleet-price"><small>${t('fleet.fromLabel')}</small><b>${money(v.min)}</b><small>${t('fleet.cityNote')}</small></span>
+            <button type="button" class="btn btn-outline" data-action="pick-vehicle" data-vehicle="${v.id}">${t('fleet.choose')}</button>
+          </div>
         </div>
-        <p class="car-models">${esc(v.models)} ${t('car.orSimilar')}</p>
-        <div class="car-cap">
-          <span title="${esc(t('cap.pax', { n: v.pax }))}">${icon('i-users')}${v.pax}<span class="sr-only"> — ${esc(t('cap.pax', { n: v.pax }))}</span></span>
-          <span title="${esc(t('cap.bags', { n: v.bags }))}">${icon('i-luggage')}${v.bags}<span class="sr-only"> — ${esc(t('cap.bags', { n: v.bags }))}</span></span>
-        </div>
-        <ul class="car-feats">
-          <li>${icon('i-check')}${t(`car.${v.id}.f1`)}</li>
-          <li>${icon('i-check')}${t(`car.${v.id}.f2`)}</li>
-          <li>${icon('i-check')}${t('fleet.hour', { price: money(v.hour) })}</li>
-        </ul>
-        <button type="button" class="btn btn-secondary btn-block" data-action="pick-vehicle" data-vehicle="${v.id}">${t('fleet.choose')}</button>
       </article>`).join('');
+    updateCarousel();
+  }
+
+  // Arrows show only when there is more to scroll to.
+  function updateCarousel() {
+    const track = $('#fleet-grid');
+    const max = track.scrollWidth - track.clientWidth - 4;
+    $('.carousel-btn.prev').disabled = track.scrollLeft <= 4;
+    $('.carousel-btn.next').disabled = track.scrollLeft >= max;
+  }
+
+  function scrollCarousel(dir) {
+    const track = $('#fleet-grid');
+    const card = track.querySelector('.fleet-card');
+    if (!card) return;
+    const step = card.getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap || 16);
+    track.scrollBy({ left: dir * step, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
   }
 
   function renderRoutes() {
@@ -901,7 +927,7 @@
       else if (fit && v.popular) badge = `<span class="badge badge-turq">${t('car.popular')}</span>`;
       const reason = !fit ? (state.pax > v.pax ? t('car.noFitPax', { n: state.pax }) : t('car.noFitBags', { n: state.bags })) : '';
       return `<button type="button" role="radio" class="car-card" data-vehicle="${v.id}" aria-checked="${selected}"${fit ? '' : ' aria-disabled="true"'}>
-        <span class="car-art car--${v.id}"><svg viewBox="0 0 240 100" aria-hidden="true"><use href="#car-${v.body}"/></svg></span>
+        <span class="car-art">${carPhoto(v)}</span>
         <span class="car-info">
           <span class="car-name">${t('car.' + v.id)} ${badge}</span>
           <span class="car-models">${esc(v.models)} ${t('car.orSimilar')}</span>
@@ -1365,6 +1391,20 @@
     html.setAttribute('data-size', n);
     store.set('size', n);
     $$('.size-seg [data-size]').forEach((b) => b.setAttribute('aria-checked', String(Number(b.dataset.size) === n)));
+    fitHeader();
+  }
+
+  // Collapse the header one step at a time until everything fits on one line.
+  const HDR_STEPS = ['hdr-1', 'hdr-2', 'hdr-3', 'hdr-4', 'hdr-5'];
+  function fitHeader() {
+    const inner = $('.header-inner');
+    const wasOpen = $('#main-nav').classList.contains('is-open');
+    html.classList.remove(...HDR_STEPS);
+    for (const step of HDR_STEPS) {
+      if (inner.scrollWidth <= inner.clientWidth + 1) break;
+      html.classList.add(step);
+    }
+    if (wasOpen && !html.classList.contains('hdr-2')) closeMenu();
   }
 
   function fillBrand() {
@@ -1430,6 +1470,11 @@
       e.preventDefault();
       if (validateTrip()) go('#/book');
     });
+
+    // Fleet carousel
+    $$('[data-carousel]').forEach((b) => b.addEventListener('click', () => scrollCarousel(Number(b.dataset.carousel))));
+    $('#fleet-grid').addEventListener('scroll', () => requestAnimationFrame(updateCarousel), { passive: true });
+    window.addEventListener('resize', updateCarousel);
 
     // Steppers (aria-disabled keeps the button focusable for keyboard users)
     document.addEventListener('click', (e) => {
@@ -1649,6 +1694,18 @@
         case 'scroll-form':
           scrollToForm();
           break;
+        case 'reserve':
+          if ($('#view-home').hidden) { pendingScroll = true; go('#/'); } else scrollToForm();
+          break;
+        case 'book-mode':
+          setMode(el.dataset.mode);
+          if (el.dataset.pax) {
+            state.pax = Math.max(state.pax, Number(el.dataset.pax));
+            renderStepper('pax');
+            saveState();
+          }
+          scrollToForm(state.place ? '.when-chips .chip' : '#place-input');
+          break;
         case 'book-for-other':
           state.det.who = 'other';
           saveState();
@@ -1740,6 +1797,9 @@
   applyI18n();
   setSize(Number(html.getAttribute('data-size')) || 1);
   bind();
+  let fitFrame = 0;
+  window.addEventListener('resize', () => { cancelAnimationFrame(fitFrame); fitFrame = requestAnimationFrame(fitHeader); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitHeader);
   renderAll();
   route();
   html.classList.remove('i18n-wait');

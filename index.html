@@ -5,11 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Safar — airport car service at a flat rate in 20+ US cities</title>
   <meta name="description" content="Airport car service at JFK, LaGuardia, Newark, LAX, SFO, O'Hare, Miami and 15 more US airports. All-inclusive flat rates with tolls and gratuity, meet & greet at baggage claim, flight tracking, no surge pricing. 24/7 in English and Spanish.">
-  <meta name="theme-color" content="#0A1A33">
+  <meta name="theme-color" content="#070B13">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Safar — airport car service at a flat rate">
   <meta property="og:description" content="Your chauffeur meets you at baggage claim. All-inclusive flat rates, flight tracking, no surge pricing.">
-  <meta property="og:image" content="img/og.png">
+  <meta property="og:image" content="img/og.jpg">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
@@ -17,7 +17,9 @@
   <link rel="manifest" href="manifest.webmanifest">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&family=Inter+Tight:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap">
+  <link rel="preload" as="image" href="img/photos/hero.webp" media="(min-width: 701px)" fetchpriority="high">
+  <link rel="preload" as="image" href="img/photos/hero-m.webp" media="(max-width: 700px)" fetchpriority="high">
   <link rel="stylesheet" href="css/styles.css">
   <script src="js/boot.js"></script>
   <script defer src="js/config.js"></script>
@@ -45,9 +47,9 @@
   <defs>
     <!-- Logo: a compass star -->
     <symbol id="logo-star" viewBox="0 0 32 32">
-      <path fill="#3CC3CF" transform="rotate(45 16 16)" d="M16 5L18.2 13.8L27 16L18.2 18.2L16 27L13.8 18.2L5 16L13.8 13.8Z"/>
-      <path fill="#F5BE4A" d="M16 0L19 13L32 16L19 19L16 32L13 19L0 16L13 13Z"/>
-      <circle cx="16" cy="16" r="3" fill="#0A1A33"/>
+      <path fill="#8F6E2B" transform="rotate(45 16 16)" d="M16 5L18.2 13.8L27 16L18.2 18.2L16 27L13.8 18.2L5 16L13.8 13.8Z"/>
+      <path fill="#D9B860" d="M16 0L19 13L32 16L19 19L16 32L13 19L0 16L13 13Z"/>
+      <circle cx="16" cy="16" r="3" fill="#070B13"/>
     </symbol>
 
     <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
@@ -69,6 +71,7 @@
     <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
     <symbol id="i-swap" viewBox="0 0 24 24"><path d="m21 16-4 4-4-4M17 20V4M3 8l4-4 4 4M7 4v16"/></symbol>
     <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
     <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
     <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
     <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
@@ -95,61 +98,6 @@
     <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
     <symbol id="i-message" viewBox="0 0 24 24"><path d="M4 4h16a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2Z"/><path d="m22 6-10 7L2 6"/></symbol>
     <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
-
-    <!-- Vehicle illustrations (side view, facing right). Colours come from CSS variables. -->
-    <symbol id="wheel" viewBox="-16 -16 32 32">
-      <circle r="15" fill="#1C222B"/><circle r="9.5" fill="#C9D1DB"/><circle r="9.5" fill="none" stroke="#97A3B2"/><circle r="6" fill="none" stroke="#AEB8C5" stroke-width="2.4" stroke-dasharray="2.4 2.3"/><circle r="2.6" fill="#5F6A79"/>
-    </symbol>
-    <symbol id="car-sedan" viewBox="0 0 240 100">
-      <ellipse cx="121" cy="93" rx="106" ry="5" fill="#0A1A33" opacity=".16"/>
-      <path class="car-body" d="M14 70C14 61 18 56 28 54L62 49C74 46 82 34 100 31L140 30C154 30 164 39 178 47L212 53C224 55 229 62 229 70V74C229 77 227 78 224 78H201A19 19 0 0 0 163 78H79A19 19 0 0 0 41 78H19C16 78 14 76 14 73Z"/>
-      <path class="car-glass" d="M72 50C80 46.5 87 38 102 36L118 35.5V50Z"/>
-      <path class="car-glass" d="M122 35.5H138C147 36 154 41 162 48.5L122 50Z"/>
-      <path class="car-line" d="M24 60C70 57 170 57 222 60M118 50V77M84 51C83 60 83 70 84 77M160 49C158 60 159 70 160 77"/>
-      <rect class="car-trim" x="104" y="55" width="10" height="2.6" rx="1.3"/><rect class="car-trim" x="145" y="55" width="10" height="2.6" rx="1.3"/>
-      <path d="M214 57C220 57 225 59 227 63L215 62Z" fill="#FFF6CF" stroke="#C9B77A" stroke-width=".8"/>
-      <path d="M15 60L24 58.5V64L15 65Z" fill="#D64545"/>
-      <path class="car-body" d="M165 44.5l6-1.2 1.2 4-6 1.2z"/>
-      <use href="#wheel" x="44" y="62" width="32" height="32"/><use href="#wheel" x="166" y="62" width="32" height="32"/>
-    </symbol>
-    <symbol id="car-exec" viewBox="0 0 240 100">
-      <ellipse cx="121" cy="93" rx="110" ry="5" fill="#0A1A33" opacity=".18"/>
-      <path class="car-body" d="M10 70C10 62 14 58 24 56L66 51C80 47 90 35 108 32L146 31C160 31 172 40 186 48L218 54C228 56 232 62 232 70V74C232 77 230 78 227 78H209A19 19 0 0 0 171 78H77A19 19 0 0 0 39 78H15C12 78 10 76 10 73Z"/>
-      <path class="car-glass car-chrome" d="M76 51.5C86 47.5 94 39 110 37L126 36.5V51Z"/>
-      <path class="car-glass car-chrome" d="M130 36.5H146C156 37 163 42 171 49.5L130 51Z"/>
-      <path class="car-line" d="M20 61C70 58 176 58 226 61M126 51V77M88 52C87 61 87 70 88 77M168 50C166 61 167 70 168 77"/>
-      <rect class="car-trim" x="110" y="56" width="10" height="2.4" rx="1.2"/><rect class="car-trim" x="152" y="56" width="10" height="2.4" rx="1.2"/>
-      <path d="M220 58C226 58 230 60 231 63L221 62Z" fill="#EAF6FF" stroke="#9FB3C4" stroke-width=".8"/>
-      <path d="M11 61L23 59.5V64L11 65Z" fill="#D64545"/>
-      <path class="car-body" d="M174 45l6-1.2 1.2 4-6 1.2z"/>
-      <use href="#wheel" x="42" y="62" width="32" height="32"/><use href="#wheel" x="174" y="62" width="32" height="32"/>
-    </symbol>
-    <symbol id="car-suv" viewBox="0 0 240 100">
-      <ellipse cx="121" cy="94" rx="108" ry="5" fill="#0A1A33" opacity=".18"/>
-      <path class="car-line car-rail" d="M30 16H150"/>
-      <path class="car-body" d="M12 74V28C12 21 16 18 23 18H158C164 18 168 20 171 24L188 41L222 46C229 47 232 53 232 61V74C232 77 230 78 227 78H210A20 20 0 0 0 170 78H74A20 20 0 0 0 34 78H15C13 78 12 77 12 74Z"/>
-      <path class="car-glass car-chrome" d="M20 44V30C20 26 22 24 26 24H66V44Z"/>
-      <path class="car-glass car-chrome" d="M70 44V24H112V44Z"/>
-      <path class="car-glass car-chrome" d="M116 44V24H154C157 24 159 25 161 27L176 44Z"/>
-      <path class="car-line" d="M16 50H226M68 46V76M114 46V76M166 46C165 58 165 68 166 76"/>
-      <rect class="car-trim" x="96" y="54" width="10" height="2.6" rx="1.3"/><rect class="car-trim" x="146" y="54" width="10" height="2.6" rx="1.3"/>
-      <path d="M220 50C226 50 230 53 231 57L220 56Z" fill="#EAF6FF" stroke="#9FB3C4" stroke-width=".8"/>
-      <rect x="228" y="59" width="4" height="10" rx="1" fill="#C5CCD6"/>
-      <path d="M12 32H17V50H12Z" fill="#D64545"/>
-      <path class="car-body" d="M168 34l7-1.5 1.5 4.5-7 1.5z"/>
-      <use href="#wheel" x="37" y="61" width="34" height="34"/><use href="#wheel" x="173" y="61" width="34" height="34"/>
-    </symbol>
-    <symbol id="car-bus" viewBox="0 0 240 100">
-      <ellipse cx="121" cy="93" rx="110" ry="5" fill="#0A1A33" opacity=".16"/>
-      <path class="car-body" d="M8 76V20C8 14 12 11 18 11H172C180 11 186 15 190 22L204 46L222 52C229 54 232 60 232 68V74C232 77 230 78 227 78H205A18 18 0 0 0 169 78H71A18 18 0 0 0 35 78H12C9 78 8 77 8 76Z"/>
-      <rect class="car-glass car-chrome" x="16" y="19" width="28" height="22" rx="3"/><rect class="car-glass car-chrome" x="48" y="19" width="28" height="22" rx="3"/><rect class="car-glass car-chrome" x="80" y="19" width="28" height="22" rx="3"/><rect class="car-glass car-chrome" x="112" y="19" width="28" height="22" rx="3"/><rect class="car-glass car-chrome" x="144" y="19" width="26" height="22" rx="3"/>
-      <path class="car-glass car-chrome" d="M176 19H184C186 19 188 21 189 23L199 42C200 43.5 199 44.5 197 44.5H176Z"/>
-      <path class="car-line" d="M12 52H228M112 45V77M142 45V77M174 15V77"/>
-      <rect class="car-trim" x="132" y="58" width="8" height="2.6" rx="1.3"/>
-      <path d="M222 55L231 57.5V62L222 61Z" fill="#EAF6FF" stroke="#9FB3C4" stroke-width=".8"/>
-      <path d="M8 48H13V62H8Z" fill="#D64545"/>
-      <use href="#wheel" x="37" y="62" width="32" height="32"/><use href="#wheel" x="171" y="62" width="32" height="32"/>
-    </symbol>
   </defs>
 </svg>
 
@@ -158,12 +106,13 @@
   <div class="container header-inner">
     <a class="logo" href="#/" aria-label="Safar">
       <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#logo-star"/></svg>
-      <span class="logo-word">safar</span>
+      <span class="logo-text"><span class="logo-word">Safar</span><span class="logo-tag" data-i18n="logo.tag">Airport chauffeurs</span></span>
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Main menu" data-i18n-aria="nav.label">
-      <a href="#how" data-i18n="nav.how">How it works</a>
-      <a href="#fleet" data-i18n="nav.fleet">Vehicles &amp; prices</a>
+      <a href="#services" data-i18n="nav.services">Services</a>
+      <a href="#fleet" data-i18n="nav.fleetShort">Fleet</a>
+      <a href="#routes" data-i18n="nav.rates">Rates</a>
       <a href="#airports" data-i18n="nav.airports">Airports</a>
       <a href="#faq" data-i18n="nav.faq">Questions</a>
       <button type="button" class="nav-manage" data-action="manage">
@@ -175,10 +124,8 @@
     </nav>
 
     <div class="header-tools">
-      <a class="header-phone" data-tel href="tel:+12125550147">
-        <span class="header-phone-icon"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span>
-        <span class="header-phone-text"><small data-i18n="header.call">Call us 24/7</small><b data-brand="phone">+1 (212) 555-0147</b></span>
-      </a>
+      <a class="header-phone" data-tel href="tel:+12125550147" aria-label="Call us 24/7" data-i18n-aria="header.call"><span data-brand="phone">+1 (212) 555-0147</span></a>
+      <button type="button" class="btn btn-gold btn-sm header-cta" data-action="reserve"><span data-i18n="nav.reserve">Reserve</span></button>
       <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria="lang.label">
         <button type="button" data-lang="en" lang="en" aria-label="English">EN</button>
         <button type="button" data-lang="es" lang="es" aria-label="Español">ES</button>
@@ -210,30 +157,36 @@
 <!-- ======================= HOME ======================= -->
 <div class="view" id="view-home">
 
+  <!-- Hero -->
   <section class="hero" aria-labelledby="hero-title">
-    <div class="container hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow eyebrow-light">
-          <svg class="i" aria-hidden="true"><use href="#i-plane-land"/></svg>
-          <span data-i18n="hero.eyebrow">Airport car service in 20+ US cities</span>
-        </p>
-        <h1 id="hero-title" data-i18n-html="hero.title">Airport rides<br>at a <em>flat rate</em></h1>
-        <p class="hero-sub" data-i18n="hero.sub">Your chauffeur meets you at baggage claim with a name sign, helps with your bags and takes you anywhere you need to go. Book in under a minute.</p>
-        <ul class="hero-points">
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="hero.p1">All-inclusive price: tolls, taxes and gratuity included</span></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="hero.p2">60 minutes of free waiting, even if your flight is late</span></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="hero.p3">No surge pricing — the same rate day and night</span></li>
-        </ul>
-        <a class="hero-call" data-tel href="tel:+12125550147">
-          <span class="hero-call-icon"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span>
-          <span><small data-i18n="hero.callLabel">Prefer to book by phone? We answer 24/7</small><b data-brand="phone">+1 (212) 555-0147</b></span>
-        </a>
+    <picture class="hero-media">
+      <source media="(max-width: 700px)" srcset="img/photos/hero-m.webp" width="900" height="1200">
+      <img src="img/photos/hero.webp" alt="" width="2400" height="1200" fetchpriority="high" decoding="async">
+    </picture>
+    <div class="container hero-inner">
+      <p class="kicker" data-i18n="hero.kicker">24/7 · {airports} US airports · Flat rates</p>
+      <h1 id="hero-title" class="display" data-i18n-html="hero.title">Your airport<br><em>chauffeur</em><br>awaits.</h1>
+      <p class="hero-tag" data-i18n="hero.tag">Airport car service &amp; private chauffeurs</p>
+      <p class="hero-codes" data-i18n="hero.codes">JFK · LAX · SFO · ORD · MIA and more — 24/7.</p>
+      <div class="hero-actions">
+        <button type="button" class="btn btn-gold btn-lg" data-action="scroll-form"><span data-i18n="hero.cta">Reserve your ride</span></button>
+        <a class="btn btn-outline btn-lg" data-tel href="tel:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-brand="phone">+1 (212) 555-0147</span></a>
+      </div>
+      <p class="hero-note"><svg class="i" aria-hidden="true"><use href="#i-star"/></svg><span data-i18n="hero.note">All-inclusive price · No surge pricing</span></p>
+    </div>
+  </section>
+
+  <!-- Instant quote: step 1 of the booking -->
+  <section class="quote" id="quote" aria-labelledby="bk-title">
+    <div class="container">
+      <div class="section-head center">
+        <p class="kicker" data-i18n="quote.kicker">Instant quote</p>
+        <h2 id="bk-title" class="h-lg" data-i18n="quote.title">Check your price</h2>
+        <p class="section-sub" data-i18n="quote.sub">A flat, all-inclusive price in seconds. No account needed.</p>
       </div>
 
-      <!-- Step 1: trip -->
       <form class="booking-card" id="trip-form" novalidate aria-labelledby="bk-title">
-        <h2 class="booking-card-title" id="bk-title" data-i18n="form.title">Book a ride</h2>
-
+        <div class="bk-progress" aria-hidden="true"><span class="on"></span><span></span><span></span><b data-i18n="quote.step">Step 1 of 3 · Trip</b></div>
         <div class="trip-tabs" role="radiogroup" aria-label="Trip type" data-i18n-aria="form.tripType">
           <button type="button" role="radio" aria-checked="true" data-mode="from" class="is-active">
             <svg class="i" aria-hidden="true"><use href="#i-plane-land"/></svg><span data-i18n="mode.from">From airport</span>
@@ -353,169 +306,229 @@
           <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="form.a3">Support 24/7</span></li>
         </ul>
       </form>
-    </div>
-
-    <!-- Skyline: suspension bridge, downtown towers, airport with a departing plane -->
-    <div class="skyline" aria-hidden="true">
-      <svg viewBox="0 0 1440 200" preserveAspectRatio="xMidYMax slice">
-        <g class="sky-fill">
-          <rect x="-600" y="186" width="2640" height="20"/>
-          <path d="M-560 200V150H-500V165H-430V140H-360V160H-290V135H-220V158H-150V145H-80V165H0V200Z"/>
-          <path d="M1440 200V160H1500V140H1570V165H1640V150H1720V170H1800V145H1880V160H2000V200Z"/>
-          <rect x="104" y="66" width="14" height="134"/><rect x="324" y="66" width="14" height="134"/>
-          <rect x="99" y="96" width="24" height="5"/><rect x="319" y="96" width="24" height="5"/>
-          <rect x="99" y="128" width="24" height="5"/><rect x="319" y="128" width="24" height="5"/>
-          <rect x="0" y="158" width="460" height="7"/>
-          <rect x="455" y="128" width="55" height="72"/>
-          <rect x="515" y="100" width="50" height="100"/>
-          <path d="M572 200V92H586V74H594V58H602V36H605V12H609V36H612V58H620V74H628V92H642V200Z"/>
-          <path d="M650 200V116L700 102V200Z"/>
-          <path d="M712 200V86H716C716 70 726 58 738 50C750 58 760 70 760 86H764V200Z"/>
-          <rect x="737" y="22" width="2.5" height="30"/>
-          <path d="M772 200V68L788 56H830V200Z"/>
-          <rect x="838" y="124" width="44" height="76"/>
-          <path d="M888 200V92L918 40L948 92V200Z"/>
-          <rect x="917" y="8" width="2" height="34"/>
-          <rect x="956" y="112" width="52" height="88"/>
-          <rect x="1014" y="92" width="44" height="108"/>
-          <rect x="1064" y="134" width="50" height="66"/>
-          <path d="M1130 200V168Q1285 146 1440 168V200Z"/>
-          <rect x="1244" y="92" width="12" height="80"/>
-          <path d="M1230 94L1235 72H1265L1270 94Z"/>
-          <rect x="1238" y="64" width="24" height="8" rx="2"/>
-          <rect x="1249" y="48" width="2" height="16"/>
-          <g transform="translate(1356 54) rotate(-16)">
-            <path d="M-34 -3H22C30 -3 36 -1 38 0C36 1 30 3 22 3H-34Z"/>
-            <path d="M-4 0H10L-8 20H-16Z"/><path d="M-4 0H10L-8 -16H-14Z"/><path d="M-30 -2H-22L-30 -14H-35Z"/>
-          </g>
-        </g>
-        <g class="sky-cable">
-          <path d="M0 150Q70 128 111 66Q221 174 331 66Q372 128 460 150"/>
-          <path class="sky-hangers" d="M131 83.8V158M151 98.1V158M171 108.8V158M191 116V158M211 119.6V158M231 119.6V158M251 116V158M271 108.8V158M291 98.1V158M311 83.8V158"/>
-        </g>
-        <path class="sky-trail" d="M1150 140Q1240 112 1318 66"/>
-        <g class="sky-tile">
-          <rect x="780" y="72" width="6" height="124"/><rect x="792" y="68" width="6" height="128"/><rect x="804" y="64" width="6" height="132"/><rect x="816" y="62" width="6" height="134"/>
-          <rect x="912" y="98" width="12" height="98"/>
-          <rect x="1022" y="100" width="8" height="96"/><rect x="1038" y="100" width="8" height="96"/>
-          <rect x="1150" y="176" width="270" height="7" rx="2"/>
-          <path d="M1238 76H1262L1265 90H1235Z"/>
-        </g>
-        <g class="sky-lights">
-          <rect x="465" y="140" width="5" height="7"/><rect x="490" y="160" width="5" height="7"/><rect x="530" y="118" width="5" height="7"/><rect x="548" y="150" width="5" height="7"/><rect x="600" y="104" width="5" height="7"/><rect x="616" y="140" width="5" height="7"/><rect x="664" y="130" width="5" height="7"/><rect x="730" y="110" width="5" height="7"/><rect x="848" y="140" width="5" height="7"/><rect x="866" y="170" width="5" height="7"/><rect x="968" y="128" width="5" height="7"/><rect x="990" y="160" width="5" height="7"/><rect x="1076" y="150" width="5" height="7"/><rect x="1096" y="170" width="5" height="7"/>
-        </g>
-      </svg>
+      <p class="quote-alt"><a data-tel href="tel:+12125550147"><span data-i18n="quote.alt">Prefer to book by phone? Call</span> <span data-brand="phone">+1 (212) 555-0147</span> <span aria-hidden="true">→</span></a></p>
     </div>
   </section>
 
-  <!-- Trust strip -->
-  <section class="trust" aria-label="Why Safar">
-    <div class="container trust-grid">
-      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-tag"/></svg></span><div><h3 data-i18n="trust.t1">All-inclusive flat rate</h3><p data-i18n="trust.d1">Tolls, taxes, fees and gratuity are in the price. No meter, no surprises.</p></div></div>
-      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-sign"/></svg></span><div><h3 data-i18n="trust.t2">Meet &amp; greet</h3><p data-i18n="trust.d2">Your chauffeur waits at baggage claim with your name on a sign.</p></div></div>
-      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-plane"/></svg></span><div><h3 data-i18n="trust.t3">Flight tracking</h3><p data-i18n="trust.d3">Flight delayed? Your chauffeur knows and waits for you.</p></div></div>
-      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg></span><div><h3 data-i18n="trust.t4">No surge pricing</h3><p data-i18n="trust.d4">Same price at rush hour, at night and on holidays.</p></div></div>
-      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-headset"/></svg></span><div><h3 data-i18n="trust.t5">Real people, 24/7</h3><p data-i18n="trust.d5">Help by phone or text in English and Spanish.</p></div></div>
-    </div>
-  </section>
-
-  <!-- How it works -->
-  <section class="section" id="how" aria-labelledby="how-title">
+  <!-- Numbers -->
+  <section class="stats" aria-label="Safar in numbers" data-i18n-aria="stats.label">
     <div class="container">
-      <div class="section-head center">
-        <p class="eyebrow" data-i18n="how.eyebrow">Simple as 1-2-3</p>
-        <h2 id="how-title" data-i18n="how.title">How it works</h2>
+      <ul class="stats-grid">
+        <li><b>24/7</b><span data-i18n="stats.s1">Reservations &amp; dispatch</span></li>
+        <li><b data-i18n="stats.n2">{airports}</b><span data-i18n="stats.s2">US airports</span></li>
+        <li><b data-i18n="stats.n3">{wait} min</b><span data-i18n="stats.s3">Free waiting at arrivals</span></li>
+        <li><b data-i18n="stats.n4">Flat</b><span data-i18n="stats.s4">All-inclusive pricing</span></li>
+      </ul>
+      <p class="stats-line" data-i18n-html="stats.line"><b>$0</b> surge pricing,<br><em>day, night or holiday.</em></p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="section" id="services" aria-labelledby="svc-title">
+    <div class="container">
+      <div class="split-head">
+        <div>
+          <p class="kicker" data-i18n="svc.kicker">What we do</p>
+          <h2 id="svc-title" class="h-xl" data-i18n-html="svc.title">Airport rides.<br>Done properly.</h2>
+        </div>
+        <p class="split-sub" data-i18n="svc.sub">From a single airport pickup to a group of fourteen, every ride is booked ahead and confirmed by a real dispatcher.</p>
       </div>
-      <ol class="how-grid">
-        <li class="how-step"><span class="how-num">1</span><h3 data-i18n="how.s1t">Choose your route</h3><p data-i18n="how.s1d">Pick the airport and where you are going. You see the final price right away.</p></li>
-        <li class="how-step"><span class="how-num">2</span><h3 data-i18n="how.s2t">Leave your name and phone</h3><p data-i18n="how.s2d">No account and no prepayment. You get a confirmation by text within minutes.</p></li>
-        <li class="how-step"><span class="how-num">3</span><h3 data-i18n="how.s3t">Meet your chauffeur</h3><p data-i18n="how.s3d">We text you the chauffeur's name, photo and vehicle. They wait for you with a name sign.</p></li>
-      </ol>
+      <div class="svc-grid">
+        <button type="button" class="svc-card" data-action="book-mode" data-mode="from">
+          <img src="img/photos/svc-airport.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
+          <span class="svc-num">01</span>
+          <span class="svc-body"><span class="svc-title" data-i18n="svc.t1">Airport pickups</span><span class="svc-text" data-i18n="svc.d1">Meet &amp; greet at baggage claim, flight tracking and {wait} minutes of free waiting.</span></span>
+        </button>
+        <button type="button" class="svc-card" data-action="book-mode" data-mode="to">
+          <img src="img/photos/svc-corporate.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
+          <span class="svc-num">02</span>
+          <span class="svc-body"><span class="svc-title" data-i18n="svc.t2">Rides to the airport</span><span class="svc-text" data-i18n="svc.d2">From your home, hotel or office, on time for your flight. Tolls and gratuity included.</span></span>
+        </button>
+        <button type="button" class="svc-card" data-action="book-mode" data-mode="hourly">
+          <img src="img/photos/svc-hourly.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
+          <span class="svc-num">03</span>
+          <span class="svc-body"><span class="svc-title" data-i18n="svc.t3">Chauffeur by the hour</span><span class="svc-text" data-i18n="svc.d3">Meetings, city tours or shopping: your chauffeur stays with you. From {minHours} hours.</span></span>
+        </button>
+        <button type="button" class="svc-card" data-action="book-mode" data-mode="from" data-pax="6">
+          <img src="img/photos/svc-groups.webp" alt="" width="1200" height="800" loading="lazy" decoding="async">
+          <span class="svc-num">04</span>
+          <span class="svc-body"><span class="svc-title" data-i18n="svc.t4">Families &amp; groups</span><span class="svc-text" data-i18n="svc.d4">SUVs and Sprinter vans for up to {maxPax} passengers, with free child seats.</span></span>
+        </button>
+      </div>
+      <a class="link-arrow" href="#fleet"><span data-i18n="svc.more">Explore the fleet</span> <span aria-hidden="true">→</span></a>
+    </div>
+  </section>
+
+  <!-- Meet & greet band -->
+  <section class="band band-left" aria-labelledby="avi-title">
+    <img class="band-media" src="img/photos/aviation.webp" alt="" width="1920" height="1000" loading="lazy" decoding="async">
+    <div class="container band-inner">
+      <p class="kicker kicker-line" data-i18n="avi.kicker">Meet &amp; greet · Flight tracking · Private terminals</p>
+      <h2 id="avi-title" class="h-xl" data-i18n="avi.title">Every arrival, handled.</h2>
+      <p class="band-text" data-i18n="avi.text">We follow your flight, so your chauffeur is there when you land, early or late. They wait with your name on a sign, carry the bags and walk you to the car. Private (FBO) terminals too.</p>
+      <button type="button" class="btn btn-gold btn-lg" data-action="scroll-form"><span data-i18n="avi.cta">Reserve now</span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg></button>
     </div>
   </section>
 
   <!-- Fleet -->
-  <section class="section section-sand" id="fleet" aria-labelledby="fleet-title">
+  <section class="section" id="fleet" aria-labelledby="fleet-title">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="fleet.eyebrow">Our fleet</p>
-        <h2 id="fleet-title" data-i18n="fleet.title">A vehicle for every trip</h2>
-        <p class="section-sub" data-i18n="fleet.sub">Late-model vehicles and licensed, insured chauffeurs. The price is per vehicle, not per person.</p>
+      <div class="split-head">
+        <div>
+          <p class="kicker" data-i18n="fleet.eyebrow">Our fleet</p>
+          <h2 id="fleet-title" class="h-xl" data-i18n="fleet.title">The Safar fleet.</h2>
+        </div>
+        <p class="split-sub" data-i18n="fleet.sub">Late-model vehicles and licensed, insured chauffeurs. The price is per vehicle, not per person.</p>
       </div>
-      <div class="fleet-grid" id="fleet-grid"></div>
+      <div class="carousel">
+        <button type="button" class="carousel-btn prev" data-carousel="-1" aria-label="Previous vehicles" data-i18n-aria="fleet.prev"><svg class="i" aria-hidden="true"><use href="#i-chevron-left"/></svg></button>
+        <div class="fleet-track" id="fleet-grid"></div>
+        <button type="button" class="carousel-btn next" data-carousel="1" aria-label="More vehicles" data-i18n-aria="fleet.next"><svg class="i" aria-hidden="true"><use href="#i-chevron-right"/></svg></button>
+      </div>
+      <div class="group-box">
+        <div>
+          <h3 data-i18n="group.title">More than {maxPax} passengers?</h3>
+          <p data-i18n="group.text">We arrange several vehicles for groups, weddings and conferences, with one dispatcher for the whole group.</p>
+        </div>
+        <a class="btn btn-gold" data-tel href="tel:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="group.cta">Call us</span></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inside the ride -->
+  <section class="section section-tight exp" aria-labelledby="exp-title">
+    <div class="container">
+      <p class="kicker" data-i18n="exp.kicker">Inside the ride</p>
+      <h2 id="exp-title" class="h-lg" data-i18n="exp.title">The experience</h2>
+    </div>
+    <div class="exp-strip">
+      <figure><img src="img/photos/exp-seats.webp" alt="" width="900" height="700" loading="lazy" decoding="async"><figcaption data-i18n="exp.c1">Quiet, spotless cabins</figcaption></figure>
+      <figure><img src="img/photos/exp-detail.webp" alt="" width="900" height="700" loading="lazy" decoding="async"><figcaption data-i18n="exp.c2">Late-model vehicles</figcaption></figure>
+      <figure><img src="img/photos/exp-van.webp" alt="" width="900" height="700" loading="lazy" decoding="async"><figcaption data-i18n="exp.c3">Vans for groups</figcaption></figure>
+      <figure><img src="img/photos/exp-hotel.webp" alt="" width="900" height="700" loading="lazy" decoding="async"><figcaption data-i18n="exp.c4">Door-to-door, day or night</figcaption></figure>
     </div>
   </section>
 
   <!-- Popular routes -->
-  <section class="section" id="routes" aria-labelledby="routes-title">
+  <section class="section section-alt" id="routes" aria-labelledby="routes-title">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="routes.eyebrow">Flat rates</p>
-        <h2 id="routes-title" data-i18n="routes.title">Popular routes</h2>
-        <p class="section-sub" data-i18n="routes.sub">Tap a route to book it — the price will not change.</p>
+      <div class="split-head">
+        <div>
+          <p class="kicker" data-i18n="routes.eyebrow">Flat rates</p>
+          <h2 id="routes-title" class="h-xl" data-i18n="routes.title">Popular routes.</h2>
+        </div>
+        <p class="split-sub" data-i18n="routes.sub">Tap a route to book it. The price will not change.</p>
       </div>
       <div class="routes-grid" id="routes-grid"></div>
     </div>
   </section>
 
-  <!-- Booking for someone else -->
-  <section class="section family" aria-labelledby="family-title">
-    <div class="container family-grid">
-      <div class="family-copy">
-        <p class="eyebrow"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg><span data-i18n="family.eyebrow">Booking for someone else?</span></p>
-        <h2 id="family-title" data-i18n="family.title">We take care of the people you love</h2>
-        <p class="section-sub" data-i18n="family.text">Picking up your parents, a visiting relative or an important client? Book the ride for them — we will keep you updated every step of the way.</p>
-        <ul class="check-list">
-          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l1">The chauffeur meets them at baggage claim with a name sign and carries the bags</span></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l2">Help for seniors and wheelchair users — free</span></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l3">You get the chauffeur's details and trip updates by text</span></li>
-          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l4">Calm, careful driving — never in a rush</span></li>
-        </ul>
-        <button type="button" class="btn btn-dark btn-lg" data-action="book-for-other">
-          <span data-i18n="family.cta">Book a ride for someone else</span>
-          <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-        </button>
+  <!-- Why Safar -->
+  <section class="section" id="why" aria-labelledby="why-title">
+    <div class="container">
+      <div class="why-grid">
+        <div class="why-copy">
+          <p class="kicker" data-i18n="why.kicker">Why Safar</p>
+          <h2 id="why-title" class="h-xl" data-i18n-html="why.title">Real people.<br>Fixed prices.</h2>
+          <p data-i18n="why.p1">Every ride is booked ahead and confirmed by a real dispatcher, not an algorithm. The price you see includes tolls, taxes, airport fees and gratuity, and it never surges.</p>
+          <p data-i18n-html="why.p2">Our chauffeurs are licensed, insured and glad to help older travelers and wheelchair users. <b>On time, calm and careful.</b></p>
+        </div>
+        <figure class="why-media"><img src="img/photos/why.webp" alt="" width="1200" height="800" loading="lazy" decoding="async"></figure>
       </div>
+      <ul class="facts">
+        <li><small data-i18n="why.f1k">Included</small><b data-i18n="why.f1">Tolls · Taxes · Gratuity</b></li>
+        <li><small data-i18n="why.f2k">Waiting</small><b data-i18n="why.f2">{wait} min free at arrivals</b></li>
+        <li><small data-i18n="why.f3k">Cancellation</small><b data-i18n="why.f3">Free up to {cancel} hours</b></li>
+        <li><small data-i18n="why.f4k">Support</small><b data-i18n="why.f4">24/7 · English · Español</b></li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Booking for someone else -->
+  <section class="section section-alt family" aria-labelledby="family-title">
+    <div class="container family-grid">
       <div class="family-art" aria-hidden="true">
         <div class="sign-card">
-          <div class="sign-top"><svg class="logo-mark" viewBox="0 0 32 32"><use href="#logo-star"/></svg><span>safar</span></div>
+          <div class="sign-top"><svg class="logo-mark" viewBox="0 0 32 32"><use href="#logo-star"/></svg><span>SAFAR</span></div>
           <p class="sign-hello" data-i18n="family.signHello">Welcome!</p>
           <p class="sign-name">MARGARET<br>JOHNSON</p>
           <p class="sign-flight">AA 100 · JFK</p>
         </div>
       </div>
+      <div class="family-copy">
+        <p class="kicker" data-i18n="family.eyebrow">Booking for someone else?</p>
+        <h2 id="family-title" class="h-xl" data-i18n="family.title">We take care of the people you love.</h2>
+        <p class="section-sub" data-i18n="family.text">Picking up your parents, a visiting relative or an important client? Book the ride for them, and we will keep you updated every step of the way.</p>
+        <ul class="check-list">
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="family.l1">The chauffeur meets them at baggage claim with a name sign and carries the bags</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="family.l2">Help for seniors and wheelchair users, free of charge</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="family.l3">You get the chauffeur's details and trip updates by text</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="family.l4">Calm, careful driving, never in a rush</span></li>
+        </ul>
+        <button type="button" class="btn btn-outline btn-lg" data-action="book-for-other">
+          <span data-i18n="family.cta">Book a ride for someone else</span>
+          <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </button>
+      </div>
     </div>
   </section>
 
   <!-- Airports -->
-  <section class="section section-sand" id="airports" aria-labelledby="airports-title">
+  <section class="section" id="airports" aria-labelledby="airports-title">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="airports.eyebrow">22 airports</p>
-        <h2 id="airports-title" data-i18n="airports.title">Major US airports, 24/7</h2>
-        <p class="section-sub" data-i18n="airports.sub">Choose your airport to start booking. Don't see yours? Call us — we can probably still help.</p>
+      <div class="split-head">
+        <div>
+          <p class="kicker" data-i18n="airports.eyebrow">Service areas</p>
+          <h2 id="airports-title" class="h-xl" data-i18n-html="airports.title">{airports} US airports.<br>One standard.</h2>
+        </div>
+        <p class="split-sub" data-i18n="airports.sub">Choose your airport to start booking. Don't see yours? Call us, we can probably still help.</p>
       </div>
       <div class="airports-grid" id="airports-grid"></div>
+    </div>
+  </section>
+
+  <!-- How a ride works -->
+  <section class="section section-alt" id="how" aria-labelledby="how-title">
+    <div class="container">
+      <p class="kicker" data-i18n="how.eyebrow">How a ride works</p>
+      <h2 id="how-title" class="h-xl" data-i18n-html="how.title">Book. Confirm.<br>Meet. Ride.</h2>
+      <ol class="how-grid">
+        <li class="how-step"><span class="how-num">01</span><h3 data-i18n="how.s1t">Choose your route</h3><p data-i18n="how.s1d">Pick the airport and where you are going. You see the final price right away.</p></li>
+        <li class="how-step"><span class="how-num">02</span><h3 data-i18n="how.s2t">Leave your name and phone</h3><p data-i18n="how.s2d">No account and no prepayment. You get a confirmation by text within minutes.</p></li>
+        <li class="how-step"><span class="how-num">03</span><h3 data-i18n="how.s3t">Meet your chauffeur</h3><p data-i18n="how.s3d">We text you the chauffeur's name, photo and vehicle. They wait for you with a name sign.</p></li>
+        <li class="how-step"><span class="how-num">04</span><h3 data-i18n="how.s4t">Relax and ride</h3><p data-i18n="how.s4d">A clean, quiet car and a careful driver. Pay after the ride by card, phone or cash.</p></li>
+      </ol>
     </div>
   </section>
 
   <!-- Reviews -->
   <section class="section" id="reviews" aria-labelledby="reviews-title">
     <div class="container">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="reviews.eyebrow">Reviews</p>
-        <h2 id="reviews-title" data-i18n="reviews.title">What passengers say</h2>
+      <div class="section-head center">
+        <p class="kicker kicker-rule" data-i18n="reviews.eyebrow">What passengers say</p>
+        <h2 id="reviews-title" class="sr-only" data-i18n="reviews.title">Reviews</h2>
       </div>
       <div class="reviews-grid" id="reviews-grid"></div>
     </div>
   </section>
 
+  <!-- Coast to coast -->
+  <section class="band band-left band-city" aria-labelledby="city-title">
+    <img class="band-media" src="img/photos/city.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+    <div class="container band-inner">
+      <p class="kicker" data-i18n="city.kicker">Coast to coast</p>
+      <h2 id="city-title" class="h-xl" data-i18n-html="city.title">New York. Los Angeles.<br>Miami. Chicago.</h2>
+      <p class="band-text" data-i18n="city.text">The same flat rates and the same warm welcome at {airports} US airports.</p>
+      <button type="button" class="btn btn-outline btn-lg" data-action="scroll-form"><span data-i18n="city.cta">Get a flat-rate quote</span></button>
+    </div>
+  </section>
+
   <!-- FAQ -->
-  <section class="section section-sand" id="faq" aria-labelledby="faq-title">
+  <section class="section" id="faq" aria-labelledby="faq-title">
     <div class="container faq-grid">
-      <div class="section-head">
-        <p class="eyebrow" data-i18n="faq.eyebrow">Questions</p>
-        <h2 id="faq-title" data-i18n="faq.title">Answers to common questions</h2>
+      <div>
+        <p class="kicker" data-i18n="faq.eyebrow">Questions</p>
+        <h2 id="faq-title" class="h-xl" data-i18n="faq.title">Good to know.</h2>
       </div>
       <div class="faq-list">
         <details><summary data-i18n="faq.q1">Where will I meet my chauffeur?</summary><p data-i18n="faq.a1">Your chauffeur waits in the baggage claim area holding a sign with your name.</p></details>
@@ -530,19 +543,21 @@
     </div>
   </section>
 
-  <!-- Help -->
-  <section class="help-band" aria-labelledby="help-title">
-    <div class="container help-inner">
-      <div>
-        <h2 id="help-title" data-i18n="help.title">Prefer to talk to a person?</h2>
-        <p data-i18n="help.text">Our dispatchers answer 24/7 in English and Spanish and will book the ride for you.</p>
+  <!-- Final call to action -->
+  <section class="cta-final" aria-labelledby="help-title">
+    <img class="band-media" src="img/photos/reserve.webp" alt="" width="1920" height="1080" loading="lazy" decoding="async">
+    <div class="container cta-inner">
+      <h2 id="help-title" class="h-giant" data-i18n-html="cta.title">Reserve your<br>next ride.</h2>
+      <div class="cta-actions">
+        <button type="button" class="btn btn-gold btn-lg" data-action="scroll-form"><span data-i18n="hero.cta">Reserve your ride</span></button>
+        <button type="button" class="btn btn-outline btn-lg" data-action="callback"><svg class="i" aria-hidden="true"><use href="#i-headset"/></svg><span data-i18n="help.callback">Call me back</span></button>
       </div>
-      <div class="help-actions">
-        <a class="btn btn-primary btn-lg" data-tel href="tel:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-brand="phone">+1 (212) 555-0147</span></a>
-        <a class="btn btn-glass btn-lg" data-sms href="sms:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg><span data-i18n="help.sms">Text us</span></a>
-        <a class="btn btn-glass btn-lg" data-wa href="https://wa.me/12125550147" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a>
-        <button type="button" class="btn btn-glass btn-lg" data-action="callback"><svg class="i" aria-hidden="true"><use href="#i-headset"/></svg><span data-i18n="help.callback">Call me back</span></button>
-      </div>
+      <a class="cta-phone" data-tel href="tel:+12125550147"><span data-brand="phone">+1 (212) 555-0147</span></a>
+      <p class="cta-meta" data-i18n="cta.meta">24/7 reservations · English &amp; Español</p>
+      <p class="cta-links">
+        <a data-sms href="sms:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg><span data-i18n="help.sms">Text us</span></a>
+        <a data-wa href="https://wa.me/12125550147" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a>
+      </p>
     </div>
   </section>
 </div>
@@ -803,7 +818,7 @@
     <div class="footer-brand">
       <a class="logo" href="#/" aria-label="Safar">
         <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#logo-star"/></svg>
-        <span class="logo-word">safar</span>
+        <span class="logo-text"><span class="logo-word">Safar</span><span class="logo-tag" data-i18n="logo.tag">Airport chauffeurs</span></span>
       </a>
       <p data-i18n="footer.about">Airport car service in 20+ US cities. All-inclusive flat rates, meet &amp; greet, 24/7.</p>
     </div>
@@ -819,6 +834,7 @@
     <div>
       <h3 data-i18n="footer.service">Service</h3>
       <ul class="footer-links">
+        <li><a href="#services" data-i18n="nav.services">Services</a></li>
         <li><a href="#fleet" data-i18n="nav.fleet">Vehicles &amp; prices</a></li>
         <li><a href="#airports" data-i18n="nav.airports">Airports</a></li>
         <li><a href="#faq" data-i18n="nav.faq">Questions</a></li>
@@ -834,14 +850,14 @@
   </div>
   <div class="container footer-bottom">
     <p id="copyright">© 2026 Safar</p>
+    <p data-i18n="footer.photos">Photos: Unsplash</p>
   </div>
 </footer>
 
 <!-- Mobile quick actions -->
-<nav class="mobile-bar" id="mobile-bar" aria-label="Quick actions">
+<nav class="mobile-bar" id="mobile-bar" aria-label="Quick actions" data-i18n-aria="mobile.label">
   <a data-tel href="tel:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="mobile.call">Call</span></a>
-  <a data-sms href="sms:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg><span data-i18n="mobile.sms">Text</span></a>
-  <button type="button" class="mobile-book" data-action="scroll-form"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg><span data-i18n="mobile.book">Book a ride</span></button>
+  <button type="button" class="mobile-book" data-action="scroll-form"><span data-i18n="mobile.book">Reserve</span></button>
 </nav>
 
 <!-- Dialog: find / cancel a booking -->

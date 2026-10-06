@@ -46,12 +46,12 @@
     // All-inclusive prices in US dollars (tolls, taxes, airport fees and gratuity included).
     // base + perMile × miles, never less than min. hour = hourly rate.
     vehicles: [
-      { id: 'standard',    body: 'sedan', models: 'Toyota Camry, Honda Accord',                pax: 3,  bags: 2,  base: 35,  perMile: 3.00, min: 65,  hour: 65 },
-      { id: 'business',    body: 'exec',  models: 'Mercedes-Benz E-Class, Cadillac CT6',       pax: 3,  bags: 3,  base: 50,  perMile: 3.75, min: 95,  hour: 85, popular: true },
-      { id: 'suv',         body: 'suv',   models: 'Chevrolet Suburban, GMC Yukon XL',          pax: 6,  bags: 6,  base: 70,  perMile: 4.50, min: 125, hour: 110 },
-      { id: 'first',       body: 'exec',  models: 'Mercedes-Benz S-Class, BMW 7 Series',       pax: 3,  bags: 3,  base: 85,  perMile: 5.50, min: 150, hour: 130 },
-      { id: 'premium-suv', body: 'suv',   models: 'Cadillac Escalade ESV, Lincoln Navigator L', pax: 6,  bags: 6,  base: 95,  perMile: 5.25, min: 160, hour: 140 },
-      { id: 'sprinter',    body: 'bus',   models: 'Mercedes-Benz Sprinter (executive)',        pax: 14, bags: 14, base: 140, perMile: 6.50, min: 250, hour: 175 }
+      { id: 'standard',    models: 'Toyota Camry, Honda Accord',                pax: 3,  bags: 2,  base: 35,  perMile: 3.00, min: 65,  hour: 65 },
+      { id: 'business',    models: 'Mercedes-Benz E-Class, Cadillac CT6',       pax: 3,  bags: 3,  base: 50,  perMile: 3.75, min: 95,  hour: 85, popular: true },
+      { id: 'suv',         models: 'Chevrolet Suburban, GMC Yukon XL',          pax: 6,  bags: 6,  base: 70,  perMile: 4.50, min: 125, hour: 110 },
+      { id: 'first',       models: 'Mercedes-Benz S-Class, BMW 7 Series',       pax: 3,  bags: 3,  base: 85,  perMile: 5.50, min: 150, hour: 130 },
+      { id: 'premium-suv', models: 'Cadillac Escalade ESV, Lincoln Navigator L', pax: 6,  bags: 6,  base: 95,  perMile: 5.25, min: 160, hour: 140 },
+      { id: 'sprinter',    models: 'Mercedes-Benz Sprinter (executive)',        pax: 14, bags: 14, base: 140, perMile: 6.50, min: 250, hour: 175 }
     ],
 
     airports: [

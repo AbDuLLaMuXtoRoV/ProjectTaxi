@@ -3,8 +3,8 @@
   "short_name": "Safar",
   "start_url": "./",
   "display": "standalone",
-  "background_color": "#FAF6EE",
-  "theme_color": "#0A1A33",
+  "background_color": "#070B13",
+  "theme_color": "#070B13",
   "icons": [
     { "src": "img/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]
