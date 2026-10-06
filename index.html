@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="en" data-size="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Safar — airport taxi in Uzbekistan at a fixed price</title>
+  <meta name="description" content="Airport taxi and transfers across Uzbekistan: Tashkent, Samarkand, Bukhara, Urgench and 7 more airports. Fixed price, meeting with a name sign, free waiting, pay after the ride. 24/7 in Uzbek, Russian and English.">
+  <meta name="theme-color" content="#0A1A33">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Safar — airport taxi in Uzbekistan at a fixed price">
+  <meta property="og:description" content="Driver meets you with a name sign. Fixed price, free waiting, pay after the ride.">
+  <meta property="og:image" content="img/og.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="img/favicon.svg" type="image/svg+xml">
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/boot.js"></script>
+  <script defer src="js/config.js"></script>
+  <script defer src="js/pricing.js"></script>
+  <script defer src="js/booking-core.js"></script>
+  <script defer src="js/i18n.js"></script>
+  <script defer src="js/app.js"></script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TaxiService",
+    "name": "Safar",
+    "description": "Airport taxi and transfers across Uzbekistan at a fixed price.",
+    "areaServed": { "@type": "Country", "name": "Uzbekistan" },
+    "provider": { "@type": "LocalBusiness", "name": "Safar", "telephone": "+998712000000", "openingHours": "Mo-Su 00:00-23:59", "address": { "@type": "PostalAddress", "addressLocality": "Tashkent", "addressCountry": "UZ" } }
+  }
+  </script>
+</head>
+<body>
+<a class="skip-link" href="#main" data-i18n="skip">Skip to main content</a>
+<div class="demo-bar" id="demo-bar" role="note" hidden><span data-i18n="demo.bar">Demo version: bookings are not sent anywhere, and the phone number and contacts are placeholders.</span></div>
+
+<!-- ============ SVG sprite: icons, logo, cars ============ -->
+<svg class="sprite" aria-hidden="true" focusable="false">
+  <defs>
+    <symbol id="logo-star" viewBox="0 0 32 32">
+      <polygon fill="#F5BE4A" points="16,1 20.39,5.39 26.61,5.39 26.61,11.61 31,16 26.61,20.39 26.61,26.61 20.39,26.61 16,31 11.61,26.61 5.39,26.61 5.39,20.39 1,16 5.39,11.61 5.39,5.39 11.61,5.39"/>
+      <circle cx="16" cy="16" r="7" fill="#0A1A33"/>
+      <circle cx="16" cy="16" r="3.2" fill="#3CC3CF"/>
+    </symbol>
+
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"/></symbol>
+    <symbol id="i-plane-land" viewBox="0 0 24 24"><path d="M2 22h20"/><path d="M3.77 10.77 2 9l2-4.5 1.1.55c.55.28.9.84.9 1.45s.35 1.17.9 1.45L8 8.5l3-6 1.05.53a2 2 0 0 1 1.09 1.52l.72 5.4a2 2 0 0 0 1.09 1.52l4.4 2.2c.42.22.78.55 1.01.96l.6 1.03c.49.88-.06 1.98-1.06 2.1l-1.18.15c-.47.06-.95-.02-1.37-.24L4.29 11.15a2 2 0 0 1-.52-.38Z"/></symbol>
+    <symbol id="i-plane-takeoff" viewBox="0 0 24 24"><path d="M2 22h20"/><path d="M6.36 17.4 4 17l-2-4 1.1-.55a2 2 0 0 1 1.8 0l.17.1a2 2 0 0 0 1.8 0L8 12 5 6l.9-.45a2 2 0 0 1 2.09.2l4.02 3a2 2 0 0 0 2.1.2l4.19-2.06a2.41 2.41 0 0 1 1.73-.17L21 7a1.4 1.4 0 0 1 .87 1.99l-.38.76c-.23.46-.6.84-1.07 1.08L7.58 17.2a2 2 0 0 1-1.22.18Z"/></symbol>
+    <symbol id="i-timer" viewBox="0 0 24 24"><path d="M10 2h4"/><path d="m12 14 3-3"/><circle cx="12" cy="14" r="8"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></symbol>
+    <symbol id="i-calendar-plus" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18M12 14v5M9.5 16.5h5"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+    <symbol id="i-luggage" viewBox="0 0 24 24"><path d="M6 20a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2"/><path d="M8 18V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v14M10 20h4"/><circle cx="16" cy="20" r="2"/><circle cx="8" cy="20" r="2"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></symbol>
+    <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+    <symbol id="i-telegram" viewBox="0 0 24 24"><path d="M21.2 4.1 2.9 11.2c-1 .4-.9 1.8.1 2.1l4.4 1.4 1.7 5.3c.3.9 1.4 1.1 2 .5l2.5-2.4 4.6 3.4c.8.6 2 .2 2.2-.8L23 5.6c.2-1-.8-1.9-1.8-1.5Z"/><path d="m7.5 14.6 10-7"/></symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/><path d="M9 10.5c0 2.5 2 4.5 4.5 4.5l1-1.2 1.8.8-.3 1.4c-3.7.4-7.6-3.5-7.2-7.2L10.2 8.5l.8 1.8Z"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+    <symbol id="i-check-circle" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="m8 12 3 3 5-6"/></symbol>
+    <symbol id="i-shield" viewBox="0 0 24 24"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></symbol>
+    <symbol id="i-swap" viewBox="0 0 24 24"><path d="m21 16-4 4-4-4M17 20V4M3 8l4-4 4 4M7 4v16"/></symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+    <symbol id="i-chevron-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></symbol>
+    <symbol id="i-arrow-left" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></symbol>
+    <symbol id="i-sign" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="12" rx="2"/><path d="M6 9.5h12M6 13h7M12 17v4"/></symbol>
+    <symbol id="i-tag" viewBox="0 0 24 24"><path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r="1.5"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></symbol>
+    <symbol id="i-headset" viewBox="0 0 24 24"><path d="M3 11h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-5Zm0 0a9 9 0 1 1 18 0m0 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3Z"/><path d="M21 16v2a4 4 0 0 1-4 4h-5"/></symbol>
+    <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol>
+    <symbol id="i-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></symbol>
+    <symbol id="i-smartphone" viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></symbol>
+    <symbol id="i-baby" viewBox="0 0 24 24"><path d="M9 12h.01M15 12h.01M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5"/><path d="M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1"/></symbol>
+    <symbol id="i-assist" viewBox="0 0 24 24"><circle cx="16" cy="4" r="1"/><path d="m18 19 1-7-6 1M5 8l3-3 5.5 3-2.36 3.5M4.24 14.5a5 5 0 0 0 6.88 6M13.76 17.5a5 5 0 0 0-6.88-6"/></symbol>
+    <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+    <symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h16"/></symbol>
+    <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></symbol>
+    <symbol id="i-hotel" viewBox="0 0 24 24"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2M10 6h4M10 10h4M10 14h4M10 18h4"/></symbol>
+    <symbol id="i-train" viewBox="0 0 24 24"><rect x="4" y="3" width="16" height="16" rx="2"/><path d="M4 11h16M12 3v8M8 19l-2 3M18 22l-2-3M8 15h.01M16 15h.01"/></symbol>
+    <symbol id="i-mountain" viewBox="0 0 24 24"><path d="m8 3 4 8 5-5 5 15H2L8 3z"/></symbol>
+    <symbol id="i-dome" viewBox="0 0 24 24"><path d="M3 21h18M5 21V12M19 21V12M4 12h16M12 3c-3.5 2-6 4.5-6 9h12c0-4.5-2.5-7-6-9zM12 3V1.5M10 21v-4a2 2 0 0 1 4 0v4"/></symbol>
+    <symbol id="i-city" viewBox="0 0 24 24"><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4M9 9v.01M9 12v.01M9 15v.01M9 18v.01"/></symbol>
+    <symbol id="i-printer" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
+    <symbol id="i-ticket" viewBox="0 0 24 24"><path d="M2 9a3 3 0 0 1 0 6v2a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-2a3 3 0 0 1 0-6V7a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2Z"/><path d="M13 5v2M13 17v2M13 11v2"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></symbol>
+    <symbol id="i-route" viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/><circle cx="18" cy="5" r="3"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+    <symbol id="i-edit" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"/></symbol>
+
+    <!-- Car illustrations (side view, facing right). Colours come from CSS variables. -->
+    <symbol id="wheel" viewBox="-16 -16 32 32">
+      <circle r="15" fill="#1C222B"/><circle r="9.5" fill="#C9D1DB"/><circle r="9.5" fill="none" stroke="#97A3B2"/><circle r="6" fill="none" stroke="#AEB8C5" stroke-width="2.4" stroke-dasharray="2.4 2.3"/><circle r="2.6" fill="#5F6A79"/>
+    </symbol>
+    <symbol id="car-sedan" viewBox="0 0 240 100">
+      <ellipse cx="121" cy="93" rx="106" ry="5" fill="#0A1A33" opacity=".16"/>
+      <path class="car-body" d="M14 70C14 61 18 56 28 54L62 49C74 46 82 34 100 31L140 30C154 30 164 39 178 47L212 53C224 55 229 62 229 70V74C229 77 227 78 224 78H201A19 19 0 0 0 163 78H79A19 19 0 0 0 41 78H19C16 78 14 76 14 73Z"/>
+      <path class="car-glass" d="M72 50C80 46.5 87 38 102 36L118 35.5V50Z"/>
+      <path class="car-glass" d="M122 35.5H138C147 36 154 41 162 48.5L122 50Z"/>
+      <path class="car-line" d="M24 60C70 57 170 57 222 60M118 50V77M84 51C83 60 83 70 84 77M160 49C158 60 159 70 160 77"/>
+      <rect class="car-trim" x="104" y="55" width="10" height="2.6" rx="1.3"/><rect class="car-trim" x="145" y="55" width="10" height="2.6" rx="1.3"/>
+      <path d="M214 57C220 57 225 59 227 63L215 62Z" fill="#FFF6CF" stroke="#C9B77A" stroke-width=".8"/>
+      <path d="M15 60L24 58.5V64L15 65Z" fill="#D64545"/>
+      <path class="car-body" d="M165 44.5l6-1.2 1.2 4-6 1.2z"/>
+      <use href="#wheel" x="44" y="62" width="32" height="32"/><use href="#wheel" x="166" y="62" width="32" height="32"/>
+    </symbol>
+    <symbol id="car-exec" viewBox="0 0 240 100">
+      <ellipse cx="121" cy="93" rx="110" ry="5" fill="#0A1A33" opacity=".18"/>
+      <path class="car-body" d="M10 70C10 62 14 58 24 56L66 51C80 47 90 35 108 32L146 31C160 31 172 40 186 48L218 54C228 56 232 62 232 70V74C232 77 230 78 227 78H209A19 19 0 0 0 171 78H77A19 19 0 0 0 39 78H15C12 78 10 76 10 73Z"/>
+      <path class="car-glass car-chrome" d="M76 51.5C86 47.5 94 39 110 37L126 36.5V51Z"/>
+      <path class="car-glass car-chrome" d="M130 36.5H146C156 37 163 42 171 49.5L130 51Z"/>
+      <path class="car-line" d="M20 61C70 58 176 58 226 61M126 51V77M88 52C87 61 87 70 88 77M168 50C166 61 167 70 168 77"/>
+      <rect class="car-trim" x="110" y="56" width="10" height="2.4" rx="1.2"/><rect class="car-trim" x="152" y="56" width="10" height="2.4" rx="1.2"/>
+      <path d="M220 58C226 58 230 60 231 63L221 62Z" fill="#EAF6FF" stroke="#9FB3C4" stroke-width=".8"/>
+      <path d="M11 61L23 59.5V64L11 65Z" fill="#D64545"/>
+      <path class="car-body" d="M174 45l6-1.2 1.2 4-6 1.2z"/>
+      <use href="#wheel" x="42" y="62" width="32" height="32"/><use href="#wheel" x="174" y="62" width="32" height="32"/>
+    </symbol>
+    <symbol id="car-van" viewBox="0 0 240 100">
+      <ellipse cx="121" cy="93" rx="106" ry="5" fill="#0A1A33" opacity=".16"/>
+      <path class="car-body" d="M12 72C12 60 13 46 18 38C21 32 25 28 32 26L150 23C160 23 170 28 182 40L214 51C225 54 230 61 230 70V74C230 77 228 78 225 78H203A19 19 0 0 0 165 78H77A19 19 0 0 0 39 78H17C14 78 12 76 12 74Z"/>
+      <path class="car-glass" d="M24 47V41C24 36 27 32.5 33 32L73 31V47Z"/>
+      <path class="car-glass" d="M78 47V30.9L119 30V47Z"/>
+      <path class="car-glass" d="M124 47V29.9L148 29.4C155 29.6 161 33 169 41.5V47Z"/>
+      <path class="car-line" d="M20 58C70 56 170 56 224 59M76 48V77M122 48V77M160 48C158 60 159 70 160 77M78 51H158"/>
+      <rect class="car-trim" x="108" y="56" width="10" height="2.6" rx="1.3"/><rect class="car-trim" x="146" y="56" width="10" height="2.6" rx="1.3"/>
+      <path d="M216 55C222 55 227 58 228 62L217 61Z" fill="#FFF6CF" stroke="#C9B77A" stroke-width=".8"/>
+      <path d="M13 50H19V62H13Z" fill="#D64545"/>
+      <path class="car-body" d="M171 40.5l6-1.2 1.2 4-6 1.2z"/>
+      <use href="#wheel" x="42" y="62" width="32" height="32"/><use href="#wheel" x="168" y="62" width="32" height="32"/>
+    </symbol>
+    <symbol id="car-bus" viewBox="0 0 240 100">
+      <ellipse cx="121" cy="93" rx="110" ry="5" fill="#0A1A33" opacity=".16"/>
+      <path class="car-body" d="M8 76V20C8 14 12 11 18 11H172C180 11 186 15 190 22L204 46L222 52C229 54 232 60 232 68V74C232 77 230 78 227 78H205A18 18 0 0 0 169 78H71A18 18 0 0 0 35 78H12C9 78 8 77 8 76Z"/>
+      <rect class="car-glass" x="16" y="19" width="28" height="22" rx="3"/><rect class="car-glass" x="48" y="19" width="28" height="22" rx="3"/><rect class="car-glass" x="80" y="19" width="28" height="22" rx="3"/><rect class="car-glass" x="112" y="19" width="28" height="22" rx="3"/><rect class="car-glass" x="144" y="19" width="26" height="22" rx="3"/>
+      <path class="car-glass" d="M176 19H184C186 19 188 21 189 23L199 42C200 43.5 199 44.5 197 44.5H176Z"/>
+      <path class="car-line" d="M12 52H228M112 45V77M142 45V77M174 15V77"/>
+      <rect class="car-trim" x="132" y="58" width="8" height="2.6" rx="1.3"/>
+      <path d="M222 55L231 57.5V62L222 61Z" fill="#FFF6CF" stroke="#C9B77A" stroke-width=".8"/>
+      <path d="M8 48H13V62H8Z" fill="#D64545"/>
+      <use href="#wheel" x="37" y="62" width="32" height="32"/><use href="#wheel" x="171" y="62" width="32" height="32"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ============ Header ============ -->
+<header class="site-header" id="top">
+  <div class="container header-inner">
+    <a class="logo" href="#/" aria-label="Safar">
+      <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#logo-star"/></svg>
+      <span class="logo-word">safar</span>
+    </a>
+
+    <nav class="main-nav" id="main-nav" aria-label="Main menu" data-i18n-aria="nav.label">
+      <a href="#how" data-i18n="nav.how">How it works</a>
+      <a href="#fleet" data-i18n="nav.fleet">Cars &amp; prices</a>
+      <a href="#airports" data-i18n="nav.airports">Airports</a>
+      <a href="#faq" data-i18n="nav.faq">Questions</a>
+      <button type="button" class="nav-manage" data-action="manage">
+        <svg class="i" aria-hidden="true"><use href="#i-ticket"/></svg><span data-i18n="nav.manage">My booking</span>
+      </button>
+      <a class="nav-phone" data-tel href="tel:+998712000000">
+        <svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-brand="phone">+998 71 200 00 00</span>
+      </a>
+    </nav>
+
+    <div class="header-tools">
+      <a class="header-phone" data-tel href="tel:+998712000000">
+        <span class="header-phone-icon"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span>
+        <span class="header-phone-text"><small data-i18n="header.call">Call us 24/7</small><b data-brand="phone">+998 71 200 00 00</b></span>
+      </a>
+      <div class="lang-switch" role="group" aria-label="Language" data-i18n-aria="lang.label">
+        <button type="button" data-lang="uz" lang="uz" aria-label="Oʻzbekcha">Oʻz</button>
+        <button type="button" data-lang="ru" lang="ru" aria-label="Русский">Рус</button>
+        <button type="button" data-lang="en" lang="en" aria-label="English">Eng</button>
+      </div>
+      <button type="button" class="icon-btn a11y-btn" data-action="a11y" aria-expanded="false" aria-controls="a11y-panel" aria-label="Text size and contrast" data-i18n-aria="a11y.open">
+        <span aria-hidden="true">Aa</span>
+      </button>
+      <button type="button" class="icon-btn menu-btn" data-action="menu" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu" data-i18n-aria="nav.menu">
+        <svg class="i" aria-hidden="true"><use href="#i-menu"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="a11y-panel" id="a11y-panel" hidden>
+    <p class="a11y-title" id="a11y-size-label" data-i18n="a11y.size">Text size</p>
+    <div class="size-seg" role="radiogroup" aria-labelledby="a11y-size-label">
+      <button type="button" role="radio" data-size="1" aria-checked="true" aria-label="Normal" data-i18n-aria="a11y.normal"><span class="sz1">A</span></button>
+      <button type="button" role="radio" data-size="2" aria-checked="false" aria-label="Large" data-i18n-aria="a11y.large"><span class="sz2">A</span></button>
+      <button type="button" role="radio" data-size="3" aria-checked="false" aria-label="Extra large" data-i18n-aria="a11y.xl"><span class="sz3">A</span></button>
+    </div>
+    <label class="check-row">
+      <input type="checkbox" id="contrast-toggle">
+      <span data-i18n="a11y.contrast">High contrast</span>
+    </label>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+<!-- ======================= HOME ======================= -->
+<div class="view" id="view-home">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow eyebrow-light">
+          <svg class="i" aria-hidden="true"><use href="#i-plane-land"/></svg>
+          <span data-i18n="hero.eyebrow">Airport transfers across Uzbekistan</span>
+        </p>
+        <h1 id="hero-title" data-i18n-html="hero.title">Airport taxi<br>at a <em>fixed price</em></h1>
+        <p class="hero-sub" data-i18n="hero.sub">Your driver meets you in the arrivals hall with a name sign, helps with the luggage and takes you anywhere in Uzbekistan. Booking takes one minute.</p>
+        <ul class="hero-points">
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="hero.p1">The price is fixed in advance — no bargaining</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="hero.p2">60 minutes of free waiting, even if the flight is late</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="hero.p3">Pay after the ride: cash, card, Payme or Click</span></li>
+        </ul>
+        <a class="hero-call" data-tel href="tel:+998712000000">
+          <span class="hero-call-icon"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg></span>
+          <span><small data-i18n="hero.callLabel">Prefer to book by phone? We answer 24/7</small><b data-brand="phone">+998 71 200 00 00</b></span>
+        </a>
+      </div>
+
+      <!-- Step 1: trip -->
+      <form class="booking-card" id="trip-form" novalidate aria-labelledby="bk-title">
+        <h2 class="booking-card-title" id="bk-title" data-i18n="form.title">Book a ride</h2>
+
+        <div class="trip-tabs" role="radiogroup" aria-label="Trip type" data-i18n-aria="form.tripType">
+          <button type="button" role="radio" aria-checked="true" data-mode="from" class="is-active">
+            <svg class="i" aria-hidden="true"><use href="#i-plane-land"/></svg><span data-i18n="mode.from">From airport</span>
+          </button>
+          <button type="button" role="radio" aria-checked="false" data-mode="to">
+            <svg class="i" aria-hidden="true"><use href="#i-plane-takeoff"/></svg><span data-i18n="mode.to">To airport</span>
+          </button>
+          <button type="button" role="radio" aria-checked="false" data-mode="hourly">
+            <svg class="i" aria-hidden="true"><use href="#i-timer"/></svg><span data-i18n="mode.hourly">By the hour</span>
+          </button>
+        </div>
+
+        <div class="route-fields" id="route-fields" data-mode="from">
+          <div class="field fld-airport">
+            <label for="airport-select" id="airport-label">Arrival airport</label>
+            <div class="control has-icon">
+              <svg class="i control-icon" aria-hidden="true"><use href="#i-plane"/></svg>
+              <select id="airport-select" class="input"></select>
+              <svg class="i control-chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+            </div>
+          </div>
+
+          <button type="button" class="swap-btn" id="swap-btn" aria-label="Swap direction" data-i18n-aria="form.swap">
+            <svg class="i" aria-hidden="true"><use href="#i-swap"/></svg>
+          </button>
+
+          <div class="field fld-place">
+            <label for="place-input" id="place-label">Where are you going?</label>
+            <div class="control has-icon combo">
+              <svg class="i control-icon" aria-hidden="true"><use href="#i-pin"/></svg>
+              <input id="place-input" class="input" type="text" role="combobox" aria-autocomplete="list" aria-expanded="false" aria-controls="place-list" aria-describedby="place-error" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Hotel, address, district or city" data-i18n-placeholder="form.placePh">
+              <button type="button" class="combo-clear" id="place-clear" hidden aria-label="Clear" data-i18n-aria="form.clear">
+                <svg class="i" aria-hidden="true"><use href="#i-x"/></svg>
+              </button>
+              <div class="combo-pop" id="place-pop" hidden>
+                <ul id="place-list" role="listbox" aria-labelledby="place-label"></ul>
+              </div>
+            </div>
+            <p class="field-error" id="place-error"></p>
+          </div>
+
+          <div class="field fld-hours" hidden>
+            <span class="label" id="hours-label" data-i18n="form.hours">How many hours?</span>
+            <div class="stepper" data-stepper="hours" role="group" aria-labelledby="hours-label">
+              <button type="button" class="step-btn" data-step="-1" aria-label="Less" data-i18n-aria="form.less">−</button>
+              <output class="step-val" aria-live="polite">3</output>
+              <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
+            </div>
+            <p class="hint" data-i18n="form.hoursHint">The driver stays with you: city tour, meetings, shopping. Minimum 2 hours.</p>
+          </div>
+        </div>
+
+        <fieldset class="field fld-when">
+          <legend class="label" id="when-label" data-i18n="form.when">When?</legend>
+          <div class="chips when-chips" role="radiogroup" aria-labelledby="when-label">
+            <button type="button" role="radio" aria-checked="false" class="chip" data-when="now">
+              <svg class="i" aria-hidden="true"><use href="#i-bolt"/></svg><span data-i18n="when.now">Right now</span>
+            </button>
+            <button type="button" role="radio" aria-checked="false" class="chip" data-when="today"><span data-i18n="when.today">Today</span></button>
+            <button type="button" role="radio" aria-checked="false" class="chip" data-when="tomorrow"><span data-i18n="when.tomorrow">Tomorrow</span></button>
+            <button type="button" role="radio" aria-checked="false" class="chip" data-when="date">
+              <svg class="i" aria-hidden="true"><use href="#i-calendar"/></svg><span data-i18n="when.other">Another date</span>
+            </button>
+          </div>
+
+          <p class="note note-info" id="now-note" hidden></p>
+
+          <div class="when-detail" id="when-detail" hidden>
+            <div class="field fld-date" id="fld-date" hidden>
+              <label for="trip-date" data-i18n="form.date">Date</label>
+              <div class="control has-icon">
+                <svg class="i control-icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+                <input type="date" id="trip-date" class="input">
+              </div>
+            </div>
+            <div class="field fld-time">
+              <span class="label" id="time-label">Flight landing time</span>
+              <div class="time-row" role="group" aria-labelledby="time-label">
+                <div class="control"><select id="trip-hour" class="input" aria-label="Hours" data-i18n-aria="form.hour"></select><svg class="i control-chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg></div>
+                <span class="time-colon" aria-hidden="true">:</span>
+                <div class="control"><select id="trip-min" class="input" aria-label="Minutes" data-i18n-aria="form.minute"></select><svg class="i control-chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg></div>
+              </div>
+            </div>
+          </div>
+          <p class="hint" id="tz-hint"></p>
+          <p class="hint hint-tip" id="to-hint" hidden data-i18n="form.toHint">Tip: for international flights, be at the airport 3 hours before departure.</p>
+          <p class="field-error" id="when-error"></p>
+        </fieldset>
+
+        <div class="row-2">
+          <div class="field">
+            <span class="label" id="pax-label"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg><span data-i18n="form.pax">Passengers</span></span>
+            <div class="stepper" data-stepper="pax" role="group" aria-labelledby="pax-label">
+              <button type="button" class="step-btn" data-step="-1" aria-label="Less" data-i18n-aria="form.less">−</button>
+              <output class="step-val" aria-live="polite">1</output>
+              <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
+            </div>
+          </div>
+          <div class="field">
+            <span class="label" id="bags-label"><svg class="i" aria-hidden="true"><use href="#i-luggage"/></svg><span data-i18n="form.bags">Suitcases</span></span>
+            <div class="stepper" data-stepper="bags" role="group" aria-labelledby="bags-label">
+              <button type="button" class="step-btn" data-step="-1" aria-label="Less" data-i18n-aria="form.less">−</button>
+              <output class="step-val" aria-live="polite">1</output>
+              <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
+            </div>
+          </div>
+        </div>
+        <p class="hint" id="group-hint" hidden data-i18n="form.groupHint">Group of more than 16? Call us — we'll arrange several cars.</p>
+
+        <button type="submit" class="btn btn-primary btn-xl btn-block">
+          <span data-i18n="form.submit">See prices</span>
+          <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </button>
+        <ul class="form-assure">
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="form.a1">No prepayment</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="form.a2">Free cancellation</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="form.a3">Support 24/7</span></li>
+        </ul>
+      </form>
+    </div>
+
+    <!-- Skyline: Registan-style madrasas on the left, modern Tashkent on the right -->
+    <div class="skyline" aria-hidden="true">
+      <svg viewBox="0 0 1440 200" preserveAspectRatio="xMidYMax slice">
+        <g class="sky-fill">
+          <rect x="-600" y="186" width="2640" height="20"/>
+          <path d="M-560 200V160H-500V150H-430V170H-360V140H-300V165H-220V150H-150V172H-80V158H0V200Z"/>
+          <path d="M1440 200V150H1500V170H1580V140H1640V160H1720V148H1790V170H1860V155H2000V200Z"/>
+          <rect x="0" y="160" width="150" height="40"/>
+          <path d="M20 160C20 146 30 138 38 131C46 138 56 146 56 160Z"/>
+          <path d="M80 152H130V200H80Z"/>
+          <path d="M84 152C84 138 96 128 105 120C114 128 126 138 126 152Z"/>
+          <rect x="162" y="70" width="16" height="130"/><rect x="157" y="80" width="26" height="8" rx="2"/><path d="M161 70L170 54L179 70Z"/>
+          <rect x="190" y="120" width="230" height="80"/>
+          <rect x="250" y="72" width="110" height="128"/>
+          <rect x="375" y="100" width="40" height="24"/>
+          <rect x="432" y="60" width="16" height="140"/><rect x="427" y="72" width="26" height="8" rx="2"/><path d="M431 60L440 44L449 60Z"/>
+          <rect x="470" y="128" width="290" height="72"/>
+          <rect x="555" y="64" width="120" height="136"/>
+          <rect x="690" y="96" width="60" height="32"/>
+          <rect x="782" y="50" width="16" height="150"/><rect x="777" y="64" width="26" height="8" rx="2"/><path d="M781 50L790 32L799 50Z"/>
+          <rect x="810" y="122" width="230" height="78"/>
+          <rect x="870" y="70" width="110" height="130"/>
+          <rect x="1050" y="150" width="30" height="50"/>
+          <rect x="1086" y="110" width="50" height="90"/>
+          <rect x="1142" y="70" width="44" height="130"/>
+          <path d="M1194 200V52L1232 34V200Z"/>
+          <rect x="1240" y="92" width="56" height="108"/>
+          <rect x="1304" y="60" width="40" height="140"/>
+          <path d="M1352 200V118L1396 104L1440 118V200Z"/>
+        </g>
+        <g class="sky-tile">
+          <path d="M275 200V130Q275 98 305 88Q335 98 335 130V200Z"/>
+          <path d="M205 200V172Q205 162 212 159Q219 162 219 172V200Z"/>
+          <path d="M229 200V172Q229 162 236 159Q243 162 243 172V200Z"/>
+          <path d="M370 102C370 80 385 68 395 56C405 68 420 80 420 102Z"/>
+          <path d="M585 200V124Q585 90 615 78Q645 90 645 124V200Z"/>
+          <path d="M490 200V166Q490 156 497 153Q504 156 504 166V200Z"/>
+          <path d="M514 200V166Q514 156 521 153Q528 156 528 166V200Z"/>
+          <path d="M702 200V166Q702 156 709 153Q716 156 716 166V200Z"/>
+          <path d="M726 200V166Q726 156 733 153Q740 156 740 166V200Z"/>
+          <path d="M680 100C680 66 704 50 720 30C736 50 760 66 760 100Z"/>
+          <path d="M895 200V130Q895 98 925 86Q955 98 955 130V200Z"/>
+          <path d="M832 124C832 104 842 94 850 86C858 94 868 104 868 124Z"/>
+          <path d="M982 124C982 104 992 94 1000 86C1008 94 1018 104 1018 124Z"/>
+        </g>
+        <g class="sky-ribs">
+          <path d="M720 32C712 50 706 72 706 100M720 32C728 50 734 72 734 100M720 32V100M395 58C390 70 387 84 387 102M395 58C400 70 403 84 403 102"/>
+        </g>
+        <g class="sky-lights">
+          <rect x="1150" y="84" width="5" height="7"/><rect x="1170" y="120" width="5" height="7"/><rect x="1205" y="70" width="5" height="7"/><rect x="1215" y="130" width="5" height="7"/><rect x="1252" y="110" width="5" height="7"/><rect x="1314" y="80" width="5" height="7"/><rect x="1328" y="150" width="5" height="7"/><rect x="1098" y="130" width="5" height="7"/>
+        </g>
+      </svg>
+    </div>
+  </section>
+
+  <!-- Trust strip -->
+  <section class="trust" aria-label="Why Safar">
+    <div class="container trust-grid">
+      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-tag"/></svg></span><div><h3 data-i18n="trust.t1">Fixed price</h3><p data-i18n="trust.d1">You know the price before you land. No meter, no surprises.</p></div></div>
+      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-sign"/></svg></span><div><h3 data-i18n="trust.t2">Meeting with a name sign</h3><p data-i18n="trust.d2">The driver waits in the arrivals hall with your name.</p></div></div>
+      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-plane"/></svg></span><div><h3 data-i18n="trust.t3">Flight tracking</h3><p data-i18n="trust.d3">Flight delayed? The driver knows and waits for you.</p></div></div>
+      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-moon"/></svg></span><div><h3 data-i18n="trust.t4">Same price at night</h3><p data-i18n="trust.d4">No surcharges for night, weekends or holidays.</p></div></div>
+      <div class="trust-item"><span class="trust-icon"><svg class="i" aria-hidden="true"><use href="#i-headset"/></svg></span><div><h3 data-i18n="trust.t5">Help in 3 languages</h3><p data-i18n="trust.d5">Uzbek, Russian and English — 24 hours a day.</p></div></div>
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section class="section" id="how" aria-labelledby="how-title">
+    <div class="container">
+      <div class="section-head center">
+        <p class="eyebrow" data-i18n="how.eyebrow">Simple as 1-2-3</p>
+        <h2 id="how-title" data-i18n="how.title">How it works</h2>
+      </div>
+      <ol class="how-grid">
+        <li class="how-step"><span class="how-num">1</span><h3 data-i18n="how.s1t">Choose the route</h3><p data-i18n="how.s1d">Select the airport and where you are going. You see the final price straight away.</p></li>
+        <li class="how-step"><span class="how-num">2</span><h3 data-i18n="how.s2t">Leave your name and phone</h3><p data-i18n="how.s2d">No registration and no prepayment. We confirm the booking within 5 minutes.</p></li>
+        <li class="how-step"><span class="how-num">3</span><h3 data-i18n="how.s3t">Meet your driver</h3><p data-i18n="how.s3d">We send you the driver's name, phone and car number. The driver waits for you with a name sign.</p></li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- Fleet -->
+  <section class="section section-sand" id="fleet" aria-labelledby="fleet-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="fleet.eyebrow">Our cars</p>
+        <h2 id="fleet-title" data-i18n="fleet.title">A car for every trip</h2>
+        <p class="section-sub" data-i18n="fleet.sub">Clean, air-conditioned cars with experienced drivers. The price is per car, not per person.</p>
+      </div>
+      <div class="fleet-grid" id="fleet-grid"></div>
+    </div>
+  </section>
+
+  <!-- Popular routes -->
+  <section class="section" id="routes" aria-labelledby="routes-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="routes.eyebrow">Fixed prices</p>
+        <h2 id="routes-title" data-i18n="routes.title">Popular routes</h2>
+        <p class="section-sub" data-i18n="routes.sub">Tap a route to book it — the price will not change.</p>
+      </div>
+      <div class="routes-grid" id="routes-grid"></div>
+    </div>
+  </section>
+
+  <!-- For parents / relatives -->
+  <section class="section family" aria-labelledby="family-title">
+    <div class="container family-grid">
+      <div class="family-copy">
+        <p class="eyebrow"><svg class="i" aria-hidden="true"><use href="#i-heart"/></svg><span data-i18n="family.eyebrow">Booking for your parents?</span></p>
+        <h2 id="family-title" data-i18n="family.title">We take care of the people you love</h2>
+        <p class="section-sub" data-i18n="family.text">Meeting parents back from Umrah, a relative coming for treatment or a guest who doesn't speak the language? Book the ride for them — we'll take care of the rest.</p>
+        <ul class="check-list">
+          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l1">The driver meets them at the exit with a name sign and carries the luggage</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l2">Help for elderly passengers and wheelchair users — free</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l3">You receive the driver's details and trip updates</span></li>
+          <li><svg class="i" aria-hidden="true"><use href="#i-check-circle"/></svg><span data-i18n="family.l4">Calm, careful driving — no rushing</span></li>
+        </ul>
+        <button type="button" class="btn btn-dark btn-lg" data-action="book-for-other">
+          <span data-i18n="family.cta">Book a ride for a relative</span>
+          <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+        </button>
+      </div>
+      <div class="family-art" aria-hidden="true">
+        <div class="sign-card">
+          <div class="sign-top"><svg class="logo-mark" viewBox="0 0 32 32"><use href="#logo-star"/></svg><span>safar</span></div>
+          <p class="sign-hello" data-i18n="family.signHello">Welcome!</p>
+          <p class="sign-name">SAIDOVA<br>MALIKA OPA</p>
+          <p class="sign-flight">HY 054 · TAS</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Airports -->
+  <section class="section section-sand" id="airports" aria-labelledby="airports-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="airports.eyebrow">11 airports</p>
+        <h2 id="airports-title" data-i18n="airports.title">All airports of Uzbekistan</h2>
+        <p class="section-sub" data-i18n="airports.sub">Day and night, 7 days a week. Choose your airport to start booking.</p>
+      </div>
+      <div class="airports-grid" id="airports-grid"></div>
+    </div>
+  </section>
+
+  <!-- Reviews -->
+  <section class="section" id="reviews" aria-labelledby="reviews-title">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="reviews.eyebrow">Reviews</p>
+        <h2 id="reviews-title" data-i18n="reviews.title">What passengers say</h2>
+      </div>
+      <div class="reviews-grid" id="reviews-grid"></div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section section-sand" id="faq" aria-labelledby="faq-title">
+    <div class="container faq-grid">
+      <div class="section-head">
+        <p class="eyebrow" data-i18n="faq.eyebrow">Questions</p>
+        <h2 id="faq-title" data-i18n="faq.title">Answers to common questions</h2>
+      </div>
+      <div class="faq-list">
+        <details><summary data-i18n="faq.q1">How will I find my driver?</summary><p data-i18n="faq.a1">The driver waits for you in the arrivals hall, right at the exit, holding a sign with your name. One hour before the pickup we send you the driver's name, phone number and car number.</p></details>
+        <details><summary data-i18n="faq.q2">What if my flight is delayed?</summary><p data-i18n="faq.a2">Nothing to worry about. We follow your flight and the driver arrives when you actually land. After landing you have 60 minutes of free waiting time.</p></details>
+        <details><summary data-i18n="faq.q3">How can I pay?</summary><p data-i18n="faq.a3">After the ride, directly to the driver: cash in soʻm, a bank card (Uzcard, Humo, Visa, Mastercard) or via Payme, Click or Uzum. No prepayment is needed.</p></details>
+        <details><summary data-i18n="faq.q4">Can I book a ride for my parents or a guest?</summary><p data-i18n="faq.a4">Yes. Choose «Someone else» and enter the passenger's name and phone. The driver will call them, and you will also receive all trip updates.</p></details>
+        <details><summary data-i18n="faq.q5">Do you have child seats?</summary><p data-i18n="faq.a5">Yes, free of charge. Just say how many you need when booking.</p></details>
+        <details><summary data-i18n="faq.q6">How do I cancel or change a booking?</summary><p data-i18n="faq.a6">Cancellation is free up to 3 hours before pickup. Use «My booking» at the top of the page, or simply call us.</p></details>
+        <details><summary data-i18n="faq.q7">I don't have a local SIM card or internet. What do I do?</summary><p data-i18n="faq.a7">Don't worry — the driver will find you by the name sign in the arrivals hall. The airport also has free Wi-Fi, and you can always call our 24/7 number.</p></details>
+        <details><summary data-i18n="faq.q8">Is the price really final?</summary><p data-i18n="faq.a8">Yes. The price you see includes waiting time, flight tracking, luggage and child seats. No extra charges at night, on weekends or on holidays.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <!-- Help -->
+  <section class="help-band" aria-labelledby="help-title">
+    <div class="container help-inner">
+      <div>
+        <h2 id="help-title" data-i18n="help.title">Prefer to talk to a person?</h2>
+        <p data-i18n="help.text">Our operators answer 24/7 in Uzbek, Russian and English and will book the ride for you.</p>
+      </div>
+      <div class="help-actions">
+        <a class="btn btn-primary btn-lg" data-tel href="tel:+998712000000"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-brand="phone">+998 71 200 00 00</span></a>
+        <a class="btn btn-glass btn-lg" data-tg href="https://t.me/safar_transfer" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-telegram"/></svg><span data-i18n="help.telegram">Write in Telegram</span></a>
+        <a class="btn btn-glass btn-lg" data-wa href="https://wa.me/998712000000" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a>
+        <button type="button" class="btn btn-glass btn-lg" data-action="callback"><svg class="i" aria-hidden="true"><use href="#i-headset"/></svg><span data-i18n="help.callback">Call me back</span></button>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ======================= BOOKING FLOW ======================= -->
+<div class="view view-book" id="view-book" hidden>
+  <div class="container">
+    <ol class="progress" aria-label="Booking steps" data-i18n-aria="steps.label">
+      <li data-step="1"><span class="progress-dot"><span class="progress-num">1</span><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="progress-label" data-i18n="steps.trip">Trip</span></li>
+      <li data-step="2"><span class="progress-dot"><span class="progress-num">2</span><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="progress-label" data-i18n="steps.car">Car</span></li>
+      <li data-step="3"><span class="progress-dot"><span class="progress-num">3</span><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="progress-label" data-i18n="steps.details">Details</span></li>
+      <li data-step="4"><span class="progress-dot"><span class="progress-num">4</span><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></span><span class="progress-label" data-i18n="steps.done">Done</span></li>
+    </ol>
+
+    <div class="book-grid">
+      <div class="book-main">
+        <button type="button" class="back-link" id="back-link" data-action="back">
+          <svg class="i" aria-hidden="true"><use href="#i-arrow-left"/></svg><span data-i18n="common.back">Back</span>
+        </button>
+        <div class="trip-line" id="trip-line"></div>
+
+        <!-- Step 2: car -->
+        <section class="step" id="step-car" hidden aria-labelledby="car-title">
+          <h1 class="step-title" id="car-title" tabindex="-1" data-i18n="car.title">Choose a car</h1>
+          <p class="step-sub" data-i18n="car.sub">The price is for the whole car and already includes everything.</p>
+          <div class="car-list" id="car-list" role="radiogroup" aria-labelledby="car-title"></div>
+          <p class="field-error" id="car-error"></p>
+
+          <div class="panel return-panel" id="return-panel">
+            <label class="toggle-row">
+              <input type="checkbox" id="return-toggle">
+              <span class="toggle-ui" aria-hidden="true"></span>
+              <span class="toggle-text"><b data-i18n="car.return">Add a return trip</b><small data-i18n="car.returnSave">and save 10% on it</small></span>
+            </label>
+            <div class="return-fields" id="return-fields" hidden>
+              <p class="label" id="return-label"></p>
+              <div class="return-row">
+                <div class="control has-icon">
+                  <svg class="i control-icon" aria-hidden="true"><use href="#i-calendar"/></svg>
+                  <input type="date" id="return-date" class="input" aria-labelledby="return-label">
+                </div>
+                <div class="time-row">
+                  <div class="control"><select id="return-hour" class="input" aria-label="Hours" data-i18n-aria="form.hour"></select><svg class="i control-chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg></div>
+                  <span class="time-colon" aria-hidden="true">:</span>
+                  <div class="control"><select id="return-min" class="input" aria-label="Minutes" data-i18n-aria="form.minute"></select><svg class="i control-chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg></div>
+                </div>
+              </div>
+              <p class="field-error" id="return-error"></p>
+            </div>
+          </div>
+
+          <div class="step-actions">
+            <div class="sa-total"><small data-i18n="common.total">Total</small><b id="car-total">—</b></div>
+            <button type="button" class="btn btn-primary btn-lg" id="car-continue">
+              <span data-i18n="common.continue">Continue</span><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+            </button>
+          </div>
+        </section>
+
+        <!-- Step 3: details -->
+        <form class="step" id="step-details" hidden novalidate aria-labelledby="det-title">
+          <h1 class="step-title" id="det-title" tabindex="-1" data-i18n="det.title">Almost done!</h1>
+          <p class="step-sub" data-i18n="det.sub">No registration — just a name and a phone number.</p>
+
+          <fieldset class="panel">
+            <legend class="panel-title" id="who-label" data-i18n="det.who">Who is travelling?</legend>
+            <div class="chips" role="radiogroup" aria-labelledby="who-label" id="who-chips">
+              <button type="button" role="radio" aria-checked="true" class="chip is-active" data-who="me"><svg class="i" aria-hidden="true"><use href="#i-user"/></svg><span data-i18n="det.whoMe">I am</span></button>
+              <button type="button" role="radio" aria-checked="false" class="chip" data-who="other"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg><span data-i18n="det.whoOther">Someone else (parents, guest…)</span></button>
+            </div>
+          </fieldset>
+
+          <div class="panel">
+            <h2 class="panel-title" id="pax-title" data-i18n="det.paxMe">Your details</h2>
+            <div class="field">
+              <label for="p-name" data-i18n="det.name">Full name</label>
+              <input id="p-name" class="input" type="text" autocomplete="name" maxlength="80" placeholder="Anvar Saidov" data-i18n-placeholder="det.namePh" aria-describedby="p-name-error">
+              <p class="field-error" id="p-name-error"></p>
+            </div>
+            <div class="field">
+              <label for="p-phone" data-i18n="det.phone">Phone number</label>
+              <input id="p-phone" class="input" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+998 90 123 45 67" aria-describedby="p-phone-hint p-phone-error" data-phone>
+              <p class="hint" id="p-phone-hint" data-i18n="det.phoneHint">Any country. Please include the country code.</p>
+              <p class="field-error" id="p-phone-error"></p>
+            </div>
+            <fieldset class="field">
+              <legend class="label" id="via-label" data-i18n="det.via">Best way to contact</legend>
+              <div class="chips" role="radiogroup" aria-labelledby="via-label" id="via-chips">
+                <button type="button" role="radio" aria-checked="true" class="chip is-active" data-via="call"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="via.call">Phone call</span></button>
+                <button type="button" role="radio" aria-checked="false" class="chip" data-via="telegram"><svg class="i" aria-hidden="true"><use href="#i-telegram"/></svg><span>Telegram</span></button>
+                <button type="button" role="radio" aria-checked="false" class="chip" data-via="whatsapp"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></button>
+              </div>
+            </fieldset>
+            <div class="field" id="fld-email">
+              <label for="p-email"><span data-i18n="det.email">Email</span> <span class="opt" data-i18n="common.optional">(optional)</span></label>
+              <input id="p-email" class="input" type="email" autocomplete="email" maxlength="120" placeholder="name@mail.com" aria-describedby="p-email-hint p-email-error">
+              <p class="hint" id="p-email-hint" data-i18n="det.emailHint">We'll send the confirmation and receipt.</p>
+              <p class="field-error" id="p-email-error"></p>
+            </div>
+          </div>
+
+          <div class="panel" id="booker-panel" hidden>
+            <h2 class="panel-title" data-i18n="det.booker">Your contacts (you are booking)</h2>
+            <p class="hint" data-i18n="det.bookerHint">We'll keep you updated about the trip too.</p>
+            <div class="row-2">
+              <div class="field">
+                <label for="b-name" data-i18n="det.name">Full name</label>
+                <input id="b-name" class="input" type="text" autocomplete="name" maxlength="80" aria-describedby="b-name-error">
+                <p class="field-error" id="b-name-error"></p>
+              </div>
+              <div class="field">
+                <label for="b-phone" data-i18n="det.phone">Phone number</label>
+                <input id="b-phone" class="input" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+998 90 123 45 67" aria-describedby="b-phone-error" data-phone>
+                <p class="field-error" id="b-phone-error"></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2 class="panel-title" data-i18n="det.trip">Trip details</h2>
+            <div class="field" id="fld-flight">
+              <label for="flight"><span data-i18n="det.flight">Flight number</span> <span class="opt" id="flight-opt"></span></label>
+              <input id="flight" class="input input-short" type="text" autocapitalize="characters" autocomplete="off" maxlength="10" placeholder="HY 054" aria-describedby="flight-hint flight-error">
+              <p class="hint" id="flight-hint"></p>
+              <p class="field-error" id="flight-error"></p>
+            </div>
+            <div class="field" id="fld-sign">
+              <label for="sign" data-i18n="det.sign">Name on the welcome sign</label>
+              <input id="sign" class="input" type="text" maxlength="60" aria-describedby="sign-hint">
+              <p class="hint" id="sign-hint" data-i18n="det.signHint">Written in Latin or Cyrillic letters, as you prefer.</p>
+            </div>
+            <div class="field">
+              <label for="address"><span id="address-label-text"></span> <span class="opt" data-i18n="common.optional">(optional)</span></label>
+              <input id="address" class="input" type="text" maxlength="200" placeholder="Street, house, entrance, landmark" data-i18n-placeholder="det.addressPh" aria-describedby="address-hint">
+              <p class="hint" id="address-hint" data-i18n="det.addressHint">Helps the driver get there without extra calls.</p>
+            </div>
+            <div class="field">
+              <label for="comment"><span data-i18n="det.comment">Comment for the driver</span> <span class="opt" data-i18n="common.optional">(optional)</span></label>
+              <textarea id="comment" class="input" rows="3" maxlength="500" placeholder="e.g. we have a pram, please call when you arrive" data-i18n-placeholder="det.commentPh"></textarea>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2 class="panel-title"><span data-i18n="det.extras">Extras</span> <span class="badge badge-free" data-i18n="common.free">free</span></h2>
+            <div class="extra-row">
+              <span class="extra-icon"><svg class="i" aria-hidden="true"><use href="#i-baby"/></svg></span>
+              <span class="extra-text"><b id="seat-label" data-i18n="det.childSeat">Child seat</b><small data-i18n="det.childSeatHint">For children up to 12 years</small></span>
+              <div class="stepper stepper-sm" data-stepper="childSeats" role="group" aria-labelledby="seat-label">
+                <button type="button" class="step-btn" data-step="-1" aria-label="Less" data-i18n-aria="form.less">−</button>
+                <output class="step-val" aria-live="polite">0</output>
+                <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
+              </div>
+            </div>
+            <label class="extra-row extra-check">
+              <span class="extra-icon"><svg class="i" aria-hidden="true"><use href="#i-assist"/></svg></span>
+              <span class="extra-text"><b data-i18n="det.assist">Help for an elderly or disabled passenger</b><small data-i18n="det.assistHint">The driver helps to the car and carries the luggage. A folding wheelchair fits in the trunk.</small></span>
+              <input type="checkbox" id="assist" class="big-check">
+            </label>
+            <div class="extra-row">
+              <span class="extra-icon"><svg class="i" aria-hidden="true"><use href="#i-globe"/></svg></span>
+              <label class="extra-text" for="driver-lang"><b data-i18n="det.lang">Driver speaks</b></label>
+              <div class="control control-inline">
+                <select id="driver-lang" class="input">
+                  <option value="any" data-i18n="det.langAny">Any language</option>
+                  <option value="uz" data-i18n="det.langUz">Uzbek</option>
+                  <option value="ru" data-i18n="det.langRu">Russian</option>
+                  <option value="en" data-i18n="det.langEn">English</option>
+                </select>
+                <svg class="i control-chevron" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+              </div>
+            </div>
+          </div>
+
+          <fieldset class="panel">
+            <legend class="panel-title" data-i18n="det.pay">How will you pay?</legend>
+            <p class="hint pay-hint" data-i18n="det.payHint">After the ride, directly to the driver. No prepayment.</p>
+            <div class="pay-options">
+              <label class="pay-opt"><input type="radio" name="pay" value="cash" checked><span class="pay-card"><svg class="i" aria-hidden="true"><use href="#i-cash"/></svg><b data-i18n="pay.cash">Cash</b><small data-i18n="pay.cashHint">In soʻm</small></span></label>
+              <label class="pay-opt"><input type="radio" name="pay" value="card"><span class="pay-card"><svg class="i" aria-hidden="true"><use href="#i-card"/></svg><b data-i18n="pay.card">Bank card</b><small>Uzcard, Humo, Visa, Mastercard</small></span></label>
+              <label class="pay-opt"><input type="radio" name="pay" value="app"><span class="pay-card"><svg class="i" aria-hidden="true"><use href="#i-smartphone"/></svg><b>Payme, Click, Uzum</b><small data-i18n="pay.appHint">QR code or link</small></span></label>
+            </div>
+          </fieldset>
+
+          <details class="panel promo-panel" id="promo-details">
+            <summary data-i18n="det.promo">Have a promo code?</summary>
+            <div class="promo-row">
+              <input id="promo" class="input" type="text" autocapitalize="characters" autocomplete="off" maxlength="20" aria-label="Promo code" aria-describedby="promo-msg">
+              <button type="button" class="btn btn-secondary" id="promo-apply" data-i18n="det.promoApply">Apply</button>
+            </div>
+            <p class="field-msg" id="promo-msg" role="status"></p>
+          </details>
+
+          <label class="check-row remember-row">
+            <input type="checkbox" id="remember" checked>
+            <span data-i18n="det.remember">Remember my details on this device</span>
+          </label>
+
+          <div class="form-alert" id="details-alert" role="alert" hidden></div>
+
+          <div class="step-actions">
+            <div class="sa-total"><small data-i18n="common.total">Total</small><b id="details-total">—</b></div>
+            <button type="submit" class="btn btn-primary btn-lg" id="confirm-btn">
+              <span data-i18n="det.confirm">Confirm booking</span><svg class="i" aria-hidden="true"><use href="#i-check"/></svg>
+            </button>
+          </div>
+          <p class="fine-print" data-i18n="det.fine">By confirming, you agree to the terms of service. Free cancellation up to 3 hours before pickup.</p>
+        </form>
+
+        <!-- Step 4: done -->
+        <section class="step step-done" id="step-done" hidden aria-labelledby="done-title">
+          <div class="done-head">
+            <div class="done-icon"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div>
+            <h1 class="step-title" id="done-title" tabindex="-1" data-i18n="done.title">Your ride is booked!</h1>
+            <div class="done-ticket">
+              <span data-i18n="done.number">Booking number</span>
+              <b id="done-code">—</b>
+            </div>
+            <p class="done-keep" data-i18n="done.keep">Please save this number. You'll need it to check or cancel the booking.</p>
+            <p class="note note-warn" id="done-demo" hidden data-i18n="done.demo">Demo mode: this booking is saved only in this browser. Start the server to receive real bookings.</p>
+          </div>
+
+          <div class="panel">
+            <h2 class="panel-title" data-i18n="done.next">What happens next</h2>
+            <ol class="next-list" id="next-list"></ol>
+          </div>
+
+          <div class="panel" id="done-summary"></div>
+
+          <div class="done-actions">
+            <button type="button" class="btn btn-secondary" data-action="ics"><svg class="i" aria-hidden="true"><use href="#i-calendar-plus"/></svg><span data-i18n="done.ics">Add to calendar</span></button>
+            <a class="btn btn-secondary" id="done-share" href="#" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-telegram"/></svg><span data-i18n="done.share">Send to Telegram</span></a>
+            <button type="button" class="btn btn-secondary" data-action="print"><svg class="i" aria-hidden="true"><use href="#i-printer"/></svg><span data-i18n="done.print">Print</span></button>
+          </div>
+          <div class="done-actions">
+            <button type="button" class="btn btn-primary btn-lg" id="done-return" data-action="book-return"><svg class="i" aria-hidden="true"><use href="#i-swap"/></svg><span data-i18n="done.return">Book the return trip</span></button>
+            <a class="btn btn-ghost btn-lg" href="#/" data-i18n="done.home">Back to home page</a>
+          </div>
+        </section>
+      </div>
+
+      <aside class="book-aside" id="book-aside" aria-label="Your trip" data-i18n-aria="sum.title">
+        <div class="summary-card">
+          <h2 class="summary-title" data-i18n="sum.title">Your trip</h2>
+          <div class="summary-route" id="summary-route"></div>
+          <div class="map-box" id="map-box">
+            <div class="map" id="map" role="img" aria-label="Route map" data-i18n-aria="sum.mapAlt"></div>
+          </div>
+          <div id="summary-body"></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>
+</main>
+
+<!-- ============ Footer ============ -->
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <a class="logo" href="#/" aria-label="Safar">
+        <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#logo-star"/></svg>
+        <span class="logo-word">safar</span>
+      </a>
+      <p data-i18n="footer.about">Airport transfers and taxis across Uzbekistan. Fixed prices, meeting with a name sign, 24/7.</p>
+    </div>
+    <div>
+      <h3 data-i18n="footer.contacts">Contacts</h3>
+      <ul class="footer-links">
+        <li><a data-tel href="tel:+998712000000"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-brand="phone">+998 71 200 00 00</span></a></li>
+        <li><a data-tg href="https://t.me/safar_transfer" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-telegram"/></svg><span>Telegram</span></a></li>
+        <li><a data-wa href="https://wa.me/998712000000" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a></li>
+        <li><a data-mail href="mailto:info@safar.uz"><svg class="i" aria-hidden="true"><use href="#i-message"/></svg><span data-brand="email">info@safar.uz</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h3 data-i18n="footer.service">Service</h3>
+      <ul class="footer-links">
+        <li><a href="#fleet" data-i18n="nav.fleet">Cars &amp; prices</a></li>
+        <li><a href="#airports" data-i18n="nav.airports">Airports</a></li>
+        <li><a href="#faq" data-i18n="nav.faq">Questions</a></li>
+        <li><button type="button" class="link-btn" data-action="manage" data-i18n="nav.manage">My booking</button></li>
+      </ul>
+    </div>
+    <div>
+      <h3 data-i18n="footer.pay">We accept</h3>
+      <ul class="pay-badges">
+        <li>Uzcard</li><li>Humo</li><li>Visa</li><li>Mastercard</li><li>Payme</li><li>Click</li><li>Uzum</li><li data-i18n="pay.cash">Cash</li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p id="copyright">© 2026 Safar</p>
+  </div>
+</footer>
+
+<!-- Mobile quick actions -->
+<nav class="mobile-bar" id="mobile-bar" aria-label="Quick actions">
+  <a data-tel href="tel:+998712000000"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="mobile.call">Call</span></a>
+  <a data-tg href="https://t.me/safar_transfer" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-telegram"/></svg><span>Telegram</span></a>
+  <button type="button" class="mobile-book" data-action="scroll-form"><svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg><span data-i18n="mobile.book">Book a ride</span></button>
+</nav>
+
+<!-- Dialog: find / cancel a booking -->
+<dialog class="dialog" id="dlg-manage" aria-labelledby="manage-title">
+  <button type="button" class="icon-btn dialog-x" data-close aria-label="Close" data-i18n-aria="common.close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <h2 id="manage-title" data-i18n="manage.title">My booking</h2>
+  <form id="manage-form" novalidate>
+    <p class="dialog-text" data-i18n="manage.text">Enter the booking number and the phone number used for booking.</p>
+    <div class="field">
+      <label for="m-code" data-i18n="done.number">Booking number</label>
+      <input id="m-code" class="input" type="text" inputmode="numeric" autocomplete="off" maxlength="9" placeholder="482 137">
+    </div>
+    <div class="field">
+      <label for="m-phone" data-i18n="det.phone">Phone number</label>
+      <input id="m-phone" class="input" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+998 90 123 45 67" data-phone>
+    </div>
+    <p class="field-error" id="manage-error" role="alert"></p>
+    <button type="submit" class="btn btn-primary btn-lg btn-block" data-i18n="manage.find">Find booking</button>
+  </form>
+  <div id="manage-result" hidden></div>
+</dialog>
+
+<!-- Dialog: call me back -->
+<dialog class="dialog" id="dlg-callback" aria-labelledby="cb-title">
+  <button type="button" class="icon-btn dialog-x" data-close aria-label="Close" data-i18n-aria="common.close"><svg class="i" aria-hidden="true"><use href="#i-x"/></svg></button>
+  <h2 id="cb-title" data-i18n="cb.title">We'll call you back</h2>
+  <form id="callback-form" novalidate>
+    <p class="dialog-text" data-i18n="cb.text">Leave your number — an operator will call you within 5 minutes and book the ride for you.</p>
+    <div class="field">
+      <label for="cb-name"><span data-i18n="cb.name">Your name</span> <span class="opt" data-i18n="common.optional">(optional)</span></label>
+      <input id="cb-name" class="input" type="text" autocomplete="name" maxlength="80">
+    </div>
+    <div class="field">
+      <label for="cb-phone" data-i18n="det.phone">Phone number</label>
+      <input id="cb-phone" class="input" type="tel" inputmode="tel" autocomplete="tel" maxlength="24" placeholder="+998 90 123 45 67" data-phone aria-describedby="cb-error">
+    </div>
+    <p class="field-error" id="cb-error" role="alert"></p>
+    <button type="submit" class="btn btn-primary btn-lg btn-block"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-i18n="help.callback">Call me back</span></button>
+  </form>
+  <div class="dialog-done" id="callback-done" hidden>
+    <div class="done-icon"><svg class="i" aria-hidden="true"><use href="#i-check"/></svg></div>
+    <p data-i18n="cb.done">Thank you! We'll call you shortly.</p>
+  </div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<noscript><div class="noscript">To book online please enable JavaScript — or call us: +998 71 200 00 00</div></noscript>
+</body>
+</html>
