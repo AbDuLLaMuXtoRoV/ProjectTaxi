@@ -20,18 +20,19 @@
     return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), ms); };
   }
 
-  function makeStore(storage) {
+  // Even reading window.localStorage throws when the browser blocks storage, so every access is guarded.
+  function makeStore(getStorage) {
     return {
       get(key, fallback) {
-        try { const v = storage.getItem('safar.' + key); return v == null ? fallback : JSON.parse(v); } catch (e) { return fallback; }
+        try { const v = getStorage().getItem('safar.' + key); return v == null ? fallback : JSON.parse(v); } catch (e) { return fallback; }
       },
       set(key, value) {
-        try { storage.setItem('safar.' + key, JSON.stringify(value)); } catch (e) { /* storage blocked — the page still works */ }
+        try { getStorage().setItem('safar.' + key, JSON.stringify(value)); } catch (e) { /* storage blocked — the page still works */ }
       }
     };
   }
-  const store = makeStore(window.localStorage);
-  const session = makeStore(window.sessionStorage);
+  const store = makeStore(() => window.localStorage);
+  const session = makeStore(() => window.sessionStorage);
 
   // --------------------------------------------------------------------- i18n
   let lang = ['uz', 'ru', 'en'].includes(html.lang) ? html.lang : 'en';
