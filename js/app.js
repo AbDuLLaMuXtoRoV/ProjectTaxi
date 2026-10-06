@@ -1,11 +1,11 @@
-/* Safar — booking site logic (no framework, no build step). */
+/* LimoBay — booking site logic (no framework, no build step). */
 (function () {
   'use strict';
 
-  const C = window.SAFAR_CONFIG;
+  const C = window.LIMOBAY_CONFIG;
   const P = window.createPricing(C);
   const core = window.createBookingCore(C, P);
-  const I18N = window.SAFAR_I18N;
+  const I18N = window.LIMOBAY_I18N;
   const html = document.documentElement;
 
   // ------------------------------------------------------------------ helpers
@@ -24,10 +24,10 @@
   function makeStore(getStorage) {
     return {
       get(key, fallback) {
-        try { const v = getStorage().getItem('safar.' + key); return v == null ? fallback : JSON.parse(v); } catch (e) { return fallback; }
+        try { const v = getStorage().getItem('limobay.' + key); return v == null ? fallback : JSON.parse(v); } catch (e) { return fallback; }
       },
       set(key, value) {
-        try { getStorage().setItem('safar.' + key, JSON.stringify(value)); } catch (e) { /* storage blocked — the page still works */ }
+        try { getStorage().setItem('limobay.' + key, JSON.stringify(value)); } catch (e) { /* storage blocked — the page still works */ }
       }
     };
   }
@@ -1186,7 +1186,7 @@
     const minutes = b.mode === 'hourly' ? b.hours * 60 : P.estimateMinutes(b.price.mi || 10);
     const event = (uid, start, from, title) => [
       'BEGIN:VEVENT',
-      `UID:${uid}@safar`,
+      `UID:${uid}@limobay`,
       `DTSTAMP:${stamp(Date.now())}`,
       `DTSTART:${stamp(start)}`,
       `DTEND:${stamp(start + minutes * 60000)}`,
@@ -1198,7 +1198,7 @@
     ];
     const apName = ap ? loc(ap.name) : '';
     const outFrom = b.mode === 'from' ? apName : b.place.name;
-    let lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Safar//Transfer//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+    let lines = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//LimoBay//Airport rides//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
     lines = lines.concat(event(b.code, Date.parse(b.pickupAt), outFrom, `${C.brand.name}: ${bookingRoute(b)}`));
     if (b.ret) {
       const retFrom = b.mode === 'from' ? b.place.name : apName;
@@ -1214,7 +1214,7 @@
     const url = URL.createObjectURL(new Blob([icsFile(b)], { type: 'text/calendar;charset=utf-8' }));
     const a = document.createElement('a');
     a.href = url;
-    a.download = `safar-${b.code}.ics`;
+    a.download = `limobay-${b.code}.ics`;
     document.body.appendChild(a);
     a.click();
     a.remove();
@@ -1274,7 +1274,7 @@
       if (LOCAL_HOST) { demoMode = true; throw { demo: true }; }
       throw { network: true };
     }
-    if (!res.headers.get('X-Safar-Api') && LOCAL_HOST) { demoMode = true; throw { demo: true }; }
+    if (!res.headers.get('X-LimoBay-Api') && LOCAL_HOST) { demoMode = true; throw { demo: true }; }
     const data = await res.json().catch(() => ({}));
     if (!res.ok) throw { status: res.status, data };
     return data;
@@ -1395,7 +1395,7 @@
   }
 
   // Collapse the header one step at a time until everything fits on one line.
-  const HDR_STEPS = ['hdr-1', 'hdr-2', 'hdr-3', 'hdr-4', 'hdr-5'];
+  const HDR_STEPS = ['hdr-1', 'hdr-2', 'hdr-3', 'hdr-4', 'hdr-5', 'hdr-6', 'hdr-7'];
   function fitHeader() {
     const inner = $('.header-inner');
     const wasOpen = $('#main-nav').classList.contains('is-open');

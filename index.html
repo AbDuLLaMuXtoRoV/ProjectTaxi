@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>Safar — airport car service at a flat rate in 20+ US cities</title>
+  <title>LimoBay — airport car service at a flat rate in 20+ US cities</title>
   <meta name="description" content="Airport car service at JFK, LaGuardia, Newark, LAX, SFO, O'Hare, Miami and 15 more US airports. All-inclusive flat rates with tolls and gratuity, meet & greet at baggage claim, flight tracking, no surge pricing. 24/7 in English and Spanish.">
   <meta name="theme-color" content="#070B13">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Safar — airport car service at a flat rate">
+  <meta property="og:title" content="LimoBay — airport car service at a flat rate">
   <meta property="og:description" content="Your chauffeur meets you at baggage claim. All-inclusive flat rates, flight tracking, no surge pricing.">
   <meta property="og:image" content="img/og.jpg">
   <meta property="og:image:width" content="1200">
@@ -31,10 +31,10 @@
   {
     "@context": "https://schema.org",
     "@type": "TaxiService",
-    "name": "Safar",
+    "name": "LimoBay",
     "description": "Airport car service at a flat, all-inclusive rate in 20+ US cities.",
     "areaServed": { "@type": "Country", "name": "United States" },
-    "provider": { "@type": "LocalBusiness", "name": "Safar", "telephone": "+12125550147", "openingHours": "Mo-Su 00:00-23:59", "address": { "@type": "PostalAddress", "addressLocality": "New York", "addressRegion": "NY", "addressCountry": "US" } }
+    "provider": { "@type": "LocalBusiness", "name": "LimoBay", "telephone": "+12125550147", "openingHours": "Mo-Su 00:00-23:59", "address": { "@type": "PostalAddress", "addressLocality": "New York", "addressRegion": "NY", "addressCountry": "US" } }
   }
   </script>
 </head>
@@ -104,9 +104,9 @@
 <!-- ============ Header ============ -->
 <header class="site-header" id="top">
   <div class="container header-inner">
-    <a class="logo" href="#/" aria-label="Safar">
+    <a class="logo" href="#/" aria-label="LimoBay">
       <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#logo-star"/></svg>
-      <span class="logo-text"><span class="logo-word">Safar</span><span class="logo-tag" data-i18n="logo.tag">Airport chauffeurs</span></span>
+      <span class="logo-text"><span class="logo-word">Limo<span>Bay</span></span><span class="logo-tag" data-i18n="logo.tag">Airport chauffeurs</span></span>
     </a>
 
     <nav class="main-nav" id="main-nav" aria-label="Main menu" data-i18n-aria="nav.label">
@@ -276,30 +276,31 @@
           <p class="field-error" id="when-error"></p>
         </fieldset>
 
-        <div class="row-2">
-          <div class="field">
-            <span class="label" id="pax-label"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg><span data-i18n="form.pax">Passengers</span></span>
-            <div class="stepper" data-stepper="pax" role="group" aria-labelledby="pax-label">
-              <button type="button" class="step-btn" data-step="-1" aria-label="Fewer" data-i18n-aria="form.less">−</button>
-              <output class="step-val" aria-live="polite">1</output>
-              <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
+        <div class="bk-bottom">
+          <div class="row-2">
+            <div class="field">
+              <span class="label" id="pax-label"><svg class="i" aria-hidden="true"><use href="#i-users"/></svg><span data-i18n="form.pax">Passengers</span></span>
+              <div class="stepper" data-stepper="pax" role="group" aria-labelledby="pax-label">
+                <button type="button" class="step-btn" data-step="-1" aria-label="Fewer" data-i18n-aria="form.less">−</button>
+                <output class="step-val" aria-live="polite">1</output>
+                <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
+              </div>
+            </div>
+            <div class="field">
+              <span class="label" id="bags-label"><svg class="i" aria-hidden="true"><use href="#i-luggage"/></svg><span data-i18n="form.bags">Suitcases</span></span>
+              <div class="stepper" data-stepper="bags" role="group" aria-labelledby="bags-label">
+                <button type="button" class="step-btn" data-step="-1" aria-label="Fewer" data-i18n-aria="form.less">−</button>
+                <output class="step-val" aria-live="polite">1</output>
+                <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
+              </div>
             </div>
           </div>
-          <div class="field">
-            <span class="label" id="bags-label"><svg class="i" aria-hidden="true"><use href="#i-luggage"/></svg><span data-i18n="form.bags">Suitcases</span></span>
-            <div class="stepper" data-stepper="bags" role="group" aria-labelledby="bags-label">
-              <button type="button" class="step-btn" data-step="-1" aria-label="Fewer" data-i18n-aria="form.less">−</button>
-              <output class="step-val" aria-live="polite">1</output>
-              <button type="button" class="step-btn" data-step="1" aria-label="More" data-i18n-aria="form.more">+</button>
-            </div>
-          </div>
+          <button type="submit" class="btn btn-primary btn-xl btn-block">
+            <span data-i18n="form.submit">See prices</span>
+            <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
+          </button>
         </div>
         <p class="hint" id="group-hint" hidden data-i18n="form.groupHint">Group of more than 14? Call us — we will arrange several vehicles.</p>
-
-        <button type="submit" class="btn btn-primary btn-xl btn-block">
-          <span data-i18n="form.submit">See prices</span>
-          <svg class="i" aria-hidden="true"><use href="#i-arrow-right"/></svg>
-        </button>
         <ul class="form-assure">
           <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="form.a1">No prepayment</span></li>
           <li><svg class="i" aria-hidden="true"><use href="#i-check"/></svg><span data-i18n="form.a2">Free cancellation</span></li>
@@ -311,7 +312,7 @@
   </section>
 
   <!-- Numbers -->
-  <section class="stats" aria-label="Safar in numbers" data-i18n-aria="stats.label">
+  <section class="stats" aria-label="LimoBay in numbers" data-i18n-aria="stats.label">
     <div class="container">
       <ul class="stats-grid">
         <li><b>24/7</b><span data-i18n="stats.s1">Reservations &amp; dispatch</span></li>
@@ -376,7 +377,7 @@
       <div class="split-head">
         <div>
           <p class="kicker" data-i18n="fleet.eyebrow">Our fleet</p>
-          <h2 id="fleet-title" class="h-xl" data-i18n="fleet.title">The Safar fleet.</h2>
+          <h2 id="fleet-title" class="h-xl" data-i18n="fleet.title">The LimoBay fleet.</h2>
         </div>
         <p class="split-sub" data-i18n="fleet.sub">Late-model vehicles and licensed, insured chauffeurs. The price is per vehicle, not per person.</p>
       </div>
@@ -423,12 +424,12 @@
     </div>
   </section>
 
-  <!-- Why Safar -->
+  <!-- Why LimoBay -->
   <section class="section" id="why" aria-labelledby="why-title">
     <div class="container">
       <div class="why-grid">
         <div class="why-copy">
-          <p class="kicker" data-i18n="why.kicker">Why Safar</p>
+          <p class="kicker" data-i18n="why.kicker">Why LimoBay</p>
           <h2 id="why-title" class="h-xl" data-i18n-html="why.title">Real people.<br>Fixed prices.</h2>
           <p data-i18n="why.p1">Every ride is booked ahead and confirmed by a real dispatcher, not an algorithm. The price you see includes tolls, taxes, airport fees and gratuity, and it never surges.</p>
           <p data-i18n-html="why.p2">Our chauffeurs are licensed, insured and glad to help older travelers and wheelchair users. <b>On time, calm and careful.</b></p>
@@ -449,7 +450,7 @@
     <div class="container family-grid">
       <div class="family-art" aria-hidden="true">
         <div class="sign-card">
-          <div class="sign-top"><svg class="logo-mark" viewBox="0 0 32 32"><use href="#logo-star"/></svg><span>SAFAR</span></div>
+          <div class="sign-top"><svg class="logo-mark" viewBox="0 0 32 32"><use href="#logo-star"/></svg><span>LIMOBAY</span></div>
           <p class="sign-hello" data-i18n="family.signHello">Welcome!</p>
           <p class="sign-name">MARGARET<br>JOHNSON</p>
           <p class="sign-flight">AA 100 · JFK</p>
@@ -816,9 +817,9 @@
 <footer class="site-footer">
   <div class="container footer-grid">
     <div class="footer-brand">
-      <a class="logo" href="#/" aria-label="Safar">
+      <a class="logo" href="#/" aria-label="LimoBay">
         <svg class="logo-mark" viewBox="0 0 32 32" aria-hidden="true"><use href="#logo-star"/></svg>
-        <span class="logo-text"><span class="logo-word">Safar</span><span class="logo-tag" data-i18n="logo.tag">Airport chauffeurs</span></span>
+        <span class="logo-text"><span class="logo-word">Limo<span>Bay</span></span><span class="logo-tag" data-i18n="logo.tag">Airport chauffeurs</span></span>
       </a>
       <p data-i18n="footer.about">Airport car service in 20+ US cities. All-inclusive flat rates, meet &amp; greet, 24/7.</p>
     </div>
@@ -828,7 +829,7 @@
         <li><a data-tel href="tel:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-phone"/></svg><span data-brand="phone">+1 (212) 555-0147</span></a></li>
         <li><a data-sms href="sms:+12125550147"><svg class="i" aria-hidden="true"><use href="#i-sms"/></svg><span data-i18n="help.sms">Text us</span></a></li>
         <li><a data-wa href="https://wa.me/12125550147" target="_blank" rel="noopener"><svg class="i" aria-hidden="true"><use href="#i-whatsapp"/></svg><span>WhatsApp</span></a></li>
-        <li><a data-mail href="mailto:rides@safar.example"><svg class="i" aria-hidden="true"><use href="#i-message"/></svg><span data-brand="email">rides@safar.example</span></a></li>
+        <li><a data-mail href="mailto:rides@limobay.example"><svg class="i" aria-hidden="true"><use href="#i-message"/></svg><span data-brand="email">rides@limobay.example</span></a></li>
       </ul>
     </div>
     <div>
@@ -849,7 +850,7 @@
     </div>
   </div>
   <div class="container footer-bottom">
-    <p id="copyright">© 2026 Safar</p>
+    <p id="copyright">© 2026 LimoBay</p>
     <p data-i18n="footer.photos">Photos: Unsplash</p>
   </div>
 </footer>

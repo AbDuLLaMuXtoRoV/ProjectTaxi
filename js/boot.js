@@ -1,7 +1,7 @@
 /* Runs before first paint: applies saved language, text size and contrast so the page never "jumps". */
 (function () {
   var d = document.documentElement, lang, size, hc;
-  function read(k) { try { return JSON.parse(localStorage.getItem('safar.' + k)); } catch (e) { return null; } }
+  function read(k) { try { return JSON.parse(localStorage.getItem('limobay.' + k)); } catch (e) { return null; } }
   lang = read('lang');
   size = read('size');
   hc = read('contrast');

@@ -1,23 +1,23 @@
 /*
- * Safar — site configuration.
- * Shared by the browser (window.SAFAR_CONFIG) and by server.js (require).
+ * LimoBay — site configuration.
+ * Shared by the browser (window.LIMOBAY_CONFIG) and by server.js (require).
  * Contacts, prices, airports and places are all edited here.
  */
 (function (root, factory) {
   if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.SAFAR_CONFIG = factory();
+  else root.LIMOBAY_CONFIG = factory();
 })(this, function () {
   return {
     brand: {
-      name: 'Safar',
+      name: 'LimoBay',
       // TODO: replace the placeholder contacts below with real ones before launch.
       // 555-01xx numbers and the .example domain are reserved for fiction, so they never reach a real person.
       phone: '+1 (212) 555-0147',
       phoneHref: '+12125550147',
       sms: '+12125550147',
       whatsapp: '12125550147',          // wa.me/<number>
-      email: 'rides@safar.example',
-      siteUrl: 'https://safar.example'
+      email: 'rides@limobay.example',
+      siteUrl: 'https://limobay.example'
     },
 
     currency: 'USD',

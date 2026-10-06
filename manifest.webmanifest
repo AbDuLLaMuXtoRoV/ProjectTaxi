@@ -1,6 +1,6 @@
 {
-  "name": "Safar — airport car service",
-  "short_name": "Safar",
+  "name": "LimoBay — airport car service",
+  "short_name": "LimoBay",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#070B13",

@@ -1,5 +1,5 @@
 /*
- * Safar — flat-rate calculator (US dollars, miles).
+ * LimoBay — flat-rate calculator (US dollars, miles).
  * Shared by the browser (window.createPricing) and server.js, so the price
  * the client sees is exactly the price the server stores.
  */
