@@ -30,7 +30,8 @@ npm run deploy:demo     # pushes public/ to the gh-pages branch
 | `public/js/pricing.js` | Flat-rate formula in dollars and miles, shared by the browser and the server |
 | `public/js/booking-core.js` | Booking validation, time zones and US phone numbers, shared by the server and demo mode |
 | `public/js/app.js` | Site logic: booking steps, place search, map, dialogs |
-| `public/css/styles.css` | Design: navy, teal and gold palette; large-text and high-contrast modes |
+| `public/css/styles.css` | Design: night navy and gold with cream booking cards, in the style of premium chauffeur sites; large-text and high-contrast modes |
+| `public/img/photos/`, `public/img/fleet/` | Photographs (WebP). Fleet photos are cut out and placed on one studio backdrop so every car looks consistent |
 | `server.js` | Static files, booking API, Telegram alerts for dispatchers, `/admin` page |
 | `data/db.json` | Bookings and call-back requests (created automatically) |
 
@@ -53,6 +54,32 @@ Copy `.env.example` to `.env`:
 - `GET /api/bookings/:code?phone=…`: look up a booking (the passenger's or the booker's phone).
 - `POST /api/bookings/:code/cancel` `{ phone }`: free cancellation up to 3 hours before pickup.
 - `POST /api/callback` `{ name, phone }`: "call me back" request.
+
+## Photos
+
+All photos come from [Unsplash](https://unsplash.com/license) (free for commercial use, no attribution required; the footer still credits Unsplash). Licence plates were blurred. For launch, replace the fleet photos with pictures of the client's own vehicles: keep the 1200 × 700 size and a plain light background so the cards stay consistent.
+
+| File in `public/img/` | Source |
+| --- | --- |
+| `photos/hero.webp`, `photos/hero-m.webp`, `og.jpg` | https://unsplash.com/photos/ZmcOEbW3hDg |
+| `photos/aviation.webp` | https://unsplash.com/photos/8JDsSX6uRA4 |
+| `photos/reserve.webp` | https://unsplash.com/photos/KzZ2FHwNNFQ |
+| `photos/city.webp` | https://unsplash.com/photos/rJ6tE-b1XXI |
+| `photos/svc-airport.webp` | https://unsplash.com/photos/HhmWbbWCKjk |
+| `photos/svc-corporate.webp` | https://unsplash.com/photos/MllJgoAFTcE |
+| `photos/svc-hourly.webp` | https://unsplash.com/photos/-J3tzK3FPxQ |
+| `photos/svc-groups.webp` | https://unsplash.com/photos/dnKYbheRklA |
+| `photos/exp-seats.webp` | https://unsplash.com/photos/sEKGGWNpSw0 |
+| `photos/exp-detail.webp` | https://unsplash.com/photos/CTHf0y5NXP0 |
+| `photos/exp-van.webp` | https://unsplash.com/photos/PNW4oeltJGo |
+| `photos/exp-hotel.webp` | https://unsplash.com/photos/W0errM88deI |
+| `photos/why.webp` | https://unsplash.com/photos/t6sIyh2swzQ |
+| `fleet/standard.webp` | https://unsplash.com/photos/YPfnvLc3bbQ |
+| `fleet/business.webp` | https://unsplash.com/photos/9gaF0iaVvHs |
+| `fleet/suv.webp` | https://unsplash.com/photos/zbuyWZEMNmI |
+| `fleet/first.webp` | https://unsplash.com/photos/pgWzo-bNUeM |
+| `fleet/premium-suv.webp` | https://unsplash.com/photos/4Dofvf-eUMs |
+| `fleet/sprinter.webp` | https://unsplash.com/photos/w6NdCQ-FqiM |
 
 ## Before launch
 
